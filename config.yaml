@@ -5,15 +5,15 @@ theme: "techveille"
 
 params:
   author: "Votre Nom"
-  description: "Blog spécialisé en Intelligence Artificielle, Technologies et Systèmes"
-  keywords: ["IA", "Tech", "Informatique", "Base de données", "Systèmes"]
+  description: "Blog spécialisé en Intelligence Artificielle, Technologies et Systèmes. Articles quotidiens sur les dernières innovations tech."
+  keywords: ["IA", "Intelligence Artificielle", "Tech", "Informatique", "Base de données", "Systèmes", "DevOps", "Machine Learning"]
   
-  # SEO
+  # SEO et réseaux sociaux
   twitter: "@votre_twitter"
   github: "votre-github"
   linkedin: "votre-linkedin"
   
-  # Analytics (optionnel)
+  # Analytics (décommentez si nécessaire)
   # googleAnalytics: "G-XXXXXXXXXX"
   
   # Monétisation
@@ -24,7 +24,13 @@ params:
   newsletter:
     enabled: true
     action: "https://votre-service-newsletter.com/subscribe"
+    
+  # Commentaires (optionnel)
+  comments:
+    enabled: false
+    # disqus: "votre-disqus-shortname"
 
+# Menu de navigation
 menu:
   main:
     - name: "Accueil"
@@ -46,18 +52,35 @@ menu:
       url: "/about/"
       weight: 60
 
+# Configuration du markup
 markup:
+  goldmark:
+    renderer:
+      unsafe: true
   highlight:
     style: "github-dark"
     lineNos: true
     codeFences: true
+    guessSyntax: true
 
+# Formats de sortie
 outputs:
   home: ["HTML", "RSS", "JSON"]
+  page: ["HTML"]
+  section: ["HTML", "RSS"]
 
+# Taxonomies
 taxonomies:
   category: "categories"
   tag: "tags"
 
+# Pagination
 pagination:
   pagerSize: 10
+
+# Sécurité
+security:
+  exec:
+    allow: ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$']
+  funcs:
+    getenv: ['^HUGO_']

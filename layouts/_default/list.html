@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="container" style="padding: 2rem; margin-top: 4rem;">
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Description }}</p>
+    
+    {{ range .Pages }}
+        <article style="margin-bottom: 2rem; padding: 1rem; border: 1px solid var(--border-color); border-radius: 0.5rem;">
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+            <p>{{ .Summary }}</p>
+            <small>{{ .Date.Format "2 January 2006" }}</small>
+        </article>
+    {{ else }}
+        <p>Aucun contenu trouvé.</p>
+    {{ end }}
+</div>
+{{ end }}

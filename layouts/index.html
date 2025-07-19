@@ -1,0 +1,251 @@
+{{ define "main" }}
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Site.Title }}</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta name="description" content="{{ .Description | default .Site.Params.description }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <span class="brand-icon">⚡</span>
+                    {{ .Site.Title }}
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/" class="nav-link active">Accueil</a>
+                <a href="/posts" class="nav-link">Articles</a>
+                <a href="/categories" class="nav-link">Catégories</a>
+                <a href="/about" class="nav-link">À propos</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="mobile-toggle" id="mobile-toggle">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div>
+                    <h1 class="hero-title">
+                        Restez à la pointe de la <span class="gradient-text">Tech & IA</span>
+                    </h1>
+                    <p class="hero-description">
+                        Découvrez chaque jour les dernières actualités, analyses et tendances 
+                        du monde de la technologie et de l'intelligence artificielle.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="/posts" class="btn btn-primary">Lire les articles</a>
+                        <a href="/about" class="btn btn-outline">En savoir plus</a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="floating-elements">
+                        <div class="floating-card">🤖 Intelligence Artificielle</div>
+                        <div class="floating-card">⚡ Performance</div>
+                        <div class="floating-card">🔧 DevOps</div>
+                        <div class="floating-card">📱 Mobile</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-card">
+                    <div class="newsletter-content">
+                        <h3>📧 Newsletter Kyrostech</h3>
+                        <p>Recevez les meilleurs articles directement dans votre boîte mail.</p>
+                    </div>
+                    <form class="newsletter-form">
+                        <input 
+                            type="email" 
+                            class="newsletter-input" 
+                            placeholder="votre@email.com"
+                            required
+                        >
+                        <button type="submit" class="btn btn-primary">S'inscrire</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Articles -->
+        <section class="featured-articles">
+            <div class="container">
+                <div class="section-header">
+                    <h2>📚 Derniers Articles</h2>
+                    <a href="/posts" class="view-all">Voir tous les articles →</a>
+                </div>
+                
+                <div class="articles-grid">
+                    {{ range first 6 (where .Site.RegularPages "Type" "posts") }}
+                    <article class="article-card">
+                        <div class="article-image">
+                            {{ if .Params.image }}
+                                <img src="{{ .Params.image }}" alt="{{ .Title }}">
+                            {{ else }}
+                                <div class="placeholder-image">
+                                    <span class="placeholder-icon">📄</span>
+                                </div>
+                            {{ end }}
+                        </div>
+                        
+                        <div class="article-content">
+                            <div class="article-meta">
+                                {{ with .Params.category }}
+                                    <span class="category-tag">{{ . }}</span>
+                                {{ end }}
+                                <span class="article-date">{{ .Date.Format "2 Jan 2006" }}</span>
+                            </div>
+                            
+                            <h3 class="article-title">
+                                <a href="{{ .Permalink }}">{{ .Title }}</a>
+                            </h3>
+                            
+                            <p class="article-excerpt">
+                                {{ .Summary | truncate 150 }}
+                            </p>
+                            
+                            <div class="article-footer">
+                                <span class="reading-time">⏱️ {{ .ReadingTime }} min de lecture</span>
+                                <a href="{{ .Permalink }}" class="read-more">Lire plus →</a>
+                            </div>
+                        </div>
+                    </article>
+                    {{ else }}
+                    <div class="no-articles">
+                        <h3>Pas encore d'articles</h3>
+                        <p>Les premiers articles arrivent bientôt !</p>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>🗂️ Catégories</h2>
+                    <a href="/categories" class="view-all">Voir toutes →</a>
+                </div>
+                
+                <div class="categories-grid">
+                    <a href="/categories/intelligence-artificielle" class="category-card">
+                        <div class="category-icon">🤖</div>
+                        <h3>Intelligence Artificielle</h3>
+                        <p>LLM, Machine Learning, Deep Learning</p>
+                        <span class="category-count">5 articles</span>
+                    </a>
+                    
+                    <a href="/categories/developpement" class="category-card">
+                        <div class="category-icon">👨‍💻</div>
+                        <h3>Développement</h3>
+                        <p>Frameworks, langages, bonnes pratiques</p>
+                        <span class="category-count">8 articles</span>
+                    </a>
+                    
+                    <a href="/categories/devops" class="category-card">
+                        <div class="category-icon">⚙️</div>
+                        <h3>DevOps</h3>
+                        <p>CI/CD, containers, infrastructure</p>
+                        <span class="category-count">3 articles</span>
+                    </a>
+                    
+                    <a href="/categories/actualites" class="category-card">
+                        <div class="category-icon">📰</div>
+                        <h3>Actualités</h3>
+                        <p>News tech, événements, tendances</p>
+                        <span class="category-count">12 articles</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Articles publiés</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1,200+</div>
+                        <div class="stat-label">Lecteurs actifs</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Catégories tech</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24h</div>
+                        <div class="stat-label">Actualité quotidienne</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Kyrostech</h3>
+                <p>Votre source quotidienne d'actualités tech et IA.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">GitHub</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <div class="support-links">
+                    <a href="/posts" class="support-link">Articles</a>
+                    <a href="/categories" class="support-link">Catégories</a>
+                    <a href="/about" class="support-link">À propos</a>
+                    <a href="/contact" class="support-link">Contact</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Catégories</h4>
+                <div class="support-links">
+                    <a href="/categories/intelligence-artificielle" class="support-link">IA</a>
+                    <a href="/categories/developpement" class="support-link">Dev</a>
+                    <a href="/categories/devops" class="support-link">DevOps</a>
+                    <a href="/categories/actualites" class="support-link">News</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kyrostech. Fait avec ❤️ et Hugo.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
+{{ end }}

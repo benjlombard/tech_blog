@@ -1,18 +1,19 @@
-baseURL: "https://votre-domaine.com"
+baseURL: "https://Kyrostech.dev"
 languageCode: "fr-FR"
-title: "TechVeille - Blog IA & Tech"
-#theme: "techveille"
+title: "Kyrostech - Blog IA & Tech"
+
 
 params:
-  author: "Votre Nom"
+  author: "Kyrostech"
   description: "Blog spécialisé en Intelligence Artificielle, Technologies et Systèmes. Articles quotidiens sur les dernières innovations tech."
   keywords: ["IA", "Intelligence Artificielle", "Tech", "Informatique", "Base de données", "Systèmes", "DevOps", "Machine Learning"]
   
   # SEO et réseaux sociaux
-  twitter: "@votre_twitter"
+  twitter: "@kyrostechdev"
   github: "votre-github"
   linkedin: "votre-linkedin"
-  
+
+
   # Analytics (décommentez si nécessaire)
   # googleAnalytics: "G-XXXXXXXXXX"
   

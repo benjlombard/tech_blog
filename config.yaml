@@ -1,7 +1,7 @@
 baseURL: "https://votre-domaine.com"
 languageCode: "fr-FR"
 title: "TechVeille - Blog IA & Tech"
-theme: "techveille"
+#theme: "techveille"
 
 params:
   author: "Votre Nom"

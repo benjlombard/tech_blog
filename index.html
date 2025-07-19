@@ -1,0 +1,150 @@
+{{ define "main" }}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title">
+                Intelligence Artificielle & <span class="gradient-text">Technologies</span>
+            </h1>
+            <p class="hero-description">
+                Découvrez les dernières actualités en IA, développement et systèmes. 
+                Un article quotidien pour rester à la pointe de la tech.
+            </p>
+            <div class="hero-actions">
+                <a href="#articles" class="btn btn-primary">Derniers articles</a>
+                <a href="/about" class="btn btn-outline">À propos</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-elements">
+                <div class="floating-card">🤖 IA</div>
+                <div class="floating-card">💻 Tech</div>
+                <div class="floating-card">🛠️ Dev</div>
+                <div class="floating-card">🔧 Sys</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+{{ if .Site.Params.newsletter.enabled }}
+<section class="newsletter-section">
+    <div class="newsletter-card">
+        <div class="newsletter-content">
+            <h3>📧 Newsletter Tech</h3>
+            <p>Recevez un résumé hebdomadaire des meilleurs articles directement dans votre boîte mail</p>
+        </div>
+        <form class="newsletter-form" action="{{ .Site.Params.newsletter.action }}" method="post">
+            <input type="email" placeholder="votre@email.com" required class="newsletter-input">
+            <button type="submit" class="btn btn-primary">S'abonner</button>
+        </form>
+    </div>
+</section>
+{{ end }}
+
+<!-- Featured Articles -->
+<section class="featured-articles" id="articles">
+    <div class="section-header">
+        <h2>Articles récents</h2>
+        <a href="/posts/" class="view-all">Voir tous les articles →</a>
+    </div>
+    
+    <div class="articles-grid">
+        {{ range first 6 (where .Site.RegularPages "Type" "posts") }}
+        <article class="article-card">
+            {{ if .Params.image }}
+            <div class="article-image">
+                <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+                <div class="article-overlay"></div>
+            </div>
+            {{ else }}
+            <div class="article-image placeholder-image">
+                <div class="placeholder-icon">📄</div>
+            </div>
+            {{ end }}
+            
+            <div class="article-content">
+                <div class="article-meta">
+                    {{ range .Params.categories }}
+                    <span class="category-tag">{{ . }}</span>
+                    {{ end }}
+                    <time class="article-date">{{ .Date.Format "2 Jan 2006" }}</time>
+                </div>
+                
+                <h3 class="article-title">
+                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                </h3>
+                
+                <p class="article-excerpt">
+                    {{ .Summary | truncate 120 }}
+                </p>
+                
+                <div class="article-footer">
+                    <div class="reading-time">⏱️ {{ .ReadingTime }} min</div>
+                    <a href="{{ .Permalink }}" class="read-more">Lire →</a>
+                </div>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section">
+    <div class="section-header">
+        <h2>Catégories populaires</h2>
+    </div>
+    
+    <div class="categories-grid">
+        <a href="/categories/ia/" class="category-card">
+            <div class="category-icon">🤖</div>
+            <h3>Intelligence Artificielle</h3>
+            <p>Machine Learning, Deep Learning, LLMs</p>
+            <div class="category-count">{{ len (index .Site.Taxonomies.categories "ia") }} articles</div>
+        </a>
+        
+        <a href="/categories/tech/" class="category-card">
+            <div class="category-icon">💻</div>
+            <h3>Technologies</h3>
+            <p>Frameworks, langages, outils modernes</p>
+            <div class="category-count">{{ len (index .Site.Taxonomies.categories "tech") }} articles</div>
+        </a>
+        
+        <a href="/categories/systemes/" class="category-card">
+            <div class="category-icon">🛠️</div>
+            <h3>Systèmes</h3>
+            <p>DevOps, Infrastructure, BDD</p>
+            <div class="category-count">{{ len (index .Site.Taxonomies.categories "systemes") }} articles</div>
+        </a>
+        
+        <a href="/categories/dev/" class="category-card">
+            <div class="category-icon">⚡</div>
+            <h3>Développement</h3>
+            <p>Bonnes pratiques, architectures</p>
+            <div class="category-count">{{ len (index .Site.Taxonomies.categories "dev") }} articles</div>
+        </a>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-number">{{ len .Site.RegularPages }}</div>
+            <div class="stat-label">Articles publiés</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">{{ len .Site.Taxonomies.categories }}</div>
+            <div class="stat-label">Catégories</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">{{ len .Site.Taxonomies.tags }}</div>
+            <div class="stat-label">Tags</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">365</div>
+            <div class="stat-label">Jours par an</div>
+        </div>
+    </div>
+</section>
+{{ end }}

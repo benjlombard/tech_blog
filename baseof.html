@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta name="keywords" content="{{ delimit .Site.Params.keywords ", " }}">
+    <meta name="author" content="{{ .Site.Params.author }}">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ .Title }}">
+    <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="{{ .Site.Params.twitter }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <!-- RSS -->
+    {{ range .AlternativeOutputFormats -}}
+    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
+    {{ end -}}
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <span class="brand-icon">⚡</span>
+                    <span class="brand-text">{{ .Site.Title }}</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                {{ range .Site.Menus.main }}
+                <a href="{{ .URL }}" class="nav-link {{ if $.IsMenuCurrent "main" . }}active{{ end }}">
+                    {{ .Name }}
+                </a>
+                {{ end }}
+            </div>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>{{ .Site.Title }}</h3>
+                <p>{{ .Site.Params.description }}</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Suivez-moi</h4>
+                <div class="social-links">
+                    {{ if .Site.Params.twitter }}
+                    <a href="https://twitter.com/{{ .Site.Params.twitter }}" class="social-link">Twitter</a>
+                    {{ end }}
+                    {{ if .Site.Params.github }}
+                    <a href="https://github.com/{{ .Site.Params.github }}" class="social-link">GitHub</a>
+                    {{ end }}
+                    {{ if .Site.Params.linkedin }}
+                    <a href="https://linkedin.com/in/{{ .Site.Params.linkedin }}" class="social-link">LinkedIn</a>
+                    {{ end }}
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Soutenez le blog</h4>
+                <div class="support-links">
+                    {{ if .Site.Params.patreon }}
+                    <a href="https://patreon.com/{{ .Site.Params.patreon }}" class="support-link">Patreon</a>
+                    {{ end }}
+                    {{ if .Site.Params.tipeee }}
+                    <a href="https://tipeee.com/{{ .Site.Params.tipeee }}" class="support-link">Tipeee</a>
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; {{ now.Year }} {{ .Site.Params.author }}. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

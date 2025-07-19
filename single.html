@@ -1,0 +1,317 @@
+{{ define "main" }}
+<article class="single-article">
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="article-meta">
+            {{ range .Params.categories }}
+            <span class="category-tag">{{ . }}</span>
+            {{ end }}
+            <time class="article-date">{{ .Date.Format "2 January 2006" }}</time>
+            <span class="reading-time">⏱️ {{ .ReadingTime }} min de lecture</span>
+        </div>
+        
+        <h1 class="article-title">{{ .Title }}</h1>
+        
+        {{ if .Params.description }}
+        <p class="article-description">{{ .Params.description }}</p>
+        {{ end }}
+        
+        {{ if .Params.image }}
+        <div class="article-featured-image">
+            <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+        </div>
+        {{ end }}
+        
+        <div class="article-author-info">
+            <div class="author-details">
+                <div class="author-name">{{ .Site.Params.author }}</div>
+                <div class="publish-info">
+                    Publié le {{ .Date.Format "2 January 2006" }}
+                    {{ if ne .Date .Lastmod }}
+                    · Mis à jour le {{ .Lastmod.Format "2 January 2006" }}
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Table of Contents (if enabled) -->
+    {{ if .Params.toc }}
+    <div class="table-of-contents">
+        <h3>📋 Table des matières</h3>
+        {{ .TableOfContents }}
+    </div>
+    {{ end }}
+
+    <!-- Article Content -->
+    <div class="article-content">
+        {{ .Content }}
+    </div>
+
+    <!-- Tags -->
+    {{ if .Params.tags }}
+    <div class="article-tags">
+        <h4>🏷️ Tags</h4>
+        <div class="tags-list">
+            {{ range .Params.tags }}
+            <a href="/tags/{{ . | urlize }}/" class="tag-link">#{{ . }}</a>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+
+    <!-- Share Buttons -->
+    <div class="share-section">
+        <h4>🔗 Partager cet article</h4>
+        <div class="share-buttons">
+            <a href="https://twitter.com/intent/tweet?url={{ .Permalink }}&text={{ .Title }}" 
+               class="share-btn twitter" target="_blank" rel="noopener">
+                📱 Twitter
+            </a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" 
+               class="share-btn linkedin" target="_blank" rel="noopener">
+                💼 LinkedIn
+            </a>
+            <a href="mailto:?subject={{ .Title }}&body=Découvre cet article intéressant : {{ .Permalink }}" 
+               class="share-btn email">
+                📧 Email
+            </a>
+            <button class="share-btn copy-url" data-url="{{ .Permalink }}">
+                🔗 Copier le lien
+            </button>
+        </div>
+    </div>
+
+    <!-- Support Section -->
+    <div class="support-section">
+        <div class="support-content">
+            <h3>💝 Cet article vous a plu ?</h3>
+            <p>Soutenez la création de contenu en devenant patron ou en laissant un pourboire !</p>
+            <div class="support-buttons">
+                {{ if .Site.Params.patreon }}
+                <a href="https://patreon.com/{{ .Site.Params.patreon }}" class="support-btn patreon">
+                    ❤️ Patreon
+                </a>
+                {{ end }}
+                {{ if .Site.Params.tipeee }}
+                <a href="https://tipeee.com/{{ .Site.Params.tipeee }}" class="support-btn tipeee">
+                    ☕ Tipeee
+                </a>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- Navigation between articles -->
+<nav class="article-nav">
+    {{ if .PrevInSection }}
+    <a href="{{ .PrevInSection.Permalink }}" class="nav-link prev">
+        <span class="nav-direction">← Article précédent</span>
+        <span class="nav-title">{{ .PrevInSection.Title }}</span>
+    </a>
+    {{ end }}
+    
+    {{ if .NextInSection }}
+    <a href="{{ .NextInSection.Permalink }}" class="nav-link next">
+        <span class="nav-direction">Article suivant →</span>
+        <span class="nav-title">{{ .NextInSection.Title }}</span>
+    </a>
+    {{ end }}
+</nav>
+
+<!-- Related Articles -->
+{{ $related := .Site.RegularPages.Related . | first 3 }}
+{{ if $related }}
+<section class="related-articles">
+    <h3>📖 Articles similaires</h3>
+    <div class="related-grid">
+        {{ range $related }}
+        <article class="related-card">
+            {{ if .Params.image }}
+            <div class="related-image">
+                <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+            </div>
+            {{ else }}
+            <div class="related-image placeholder">
+                <div class="placeholder-icon">📄</div>
+            </div>
+            {{ end }}
+            
+            <div class="related-content">
+                <div class="related-meta">
+                    {{ range first 1 .Params.categories }}
+                    <span class="category-tag">{{ . }}</span>
+                    {{ end }}
+                    <time>{{ .Date.Format "2 Jan" }}</time>
+                </div>
+                
+                <h4 class="related-title">
+                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                </h4>
+                
+                <p class="related-excerpt">
+                    {{ .Summary | truncate 80 }}
+                </p>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</section>
+{{ end }}
+
+<!-- Newsletter Signup -->
+{{ if .Site.Params.newsletter.enabled }}
+<section class="article-newsletter">
+    <div class="newsletter-card">
+        <div class="newsletter-content">
+            <h3>📬 Ne ratez aucun article</h3>
+            <p>Recevez les nouveaux articles directement dans votre boîte mail</p>
+        </div>
+        <form class="newsletter-form" action="{{ .Site.Params.newsletter.action }}" method="post">
+            <input type="email" placeholder="votre@email.com" required class="newsletter-input">
+            <button type="submit" class="btn btn-primary">S'abonner</button>
+        </form>
+    </div>
+</section>
+{{ end }}
+
+<style>
+/* Single Article Styles */
+.single-article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.article-header {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.article-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.article-title {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.article-description {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.article-featured-image {
+    margin-bottom: 2rem;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.article-featured-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.article-author-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.author-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.publish-info {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Table of Contents */
+.table-of-contents {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.table-of-contents h3 {
+    margin-bottom: 1rem;
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.table-of-contents li {
+    margin-bottom: 0.5rem;
+}
+
+.table-of-contents a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.table-of-contents a:hover {
+    color: var(--accent-primary);
+}
+
+/* Article Content */
+.article-content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.article-content h2 {
+    font-size: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.article-content h3 {
+    font-size: 1.5rem;
+}
+
+.article-content p {
+    margin-bottom: 1.5rem;
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);

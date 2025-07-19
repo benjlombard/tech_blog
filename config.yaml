@@ -1,0 +1,63 @@
+baseURL: "https://votre-domaine.com"
+languageCode: "fr-FR"
+title: "TechVeille - Blog IA & Tech"
+theme: "techveille"
+
+params:
+  author: "Votre Nom"
+  description: "Blog spécialisé en Intelligence Artificielle, Technologies et Systèmes"
+  keywords: ["IA", "Tech", "Informatique", "Base de données", "Systèmes"]
+  
+  # SEO
+  twitter: "@votre_twitter"
+  github: "votre-github"
+  linkedin: "votre-linkedin"
+  
+  # Analytics (optionnel)
+  # googleAnalytics: "G-XXXXXXXXXX"
+  
+  # Monétisation
+  patreon: "votre-patreon"
+  tipeee: "votre-tipeee"
+  
+  # Newsletter
+  newsletter:
+    enabled: true
+    action: "https://votre-service-newsletter.com/subscribe"
+
+menu:
+  main:
+    - name: "Accueil"
+      url: "/"
+      weight: 10
+    - name: "Articles"
+      url: "/posts/"
+      weight: 20
+    - name: "IA"
+      url: "/categories/ia/"
+      weight: 30
+    - name: "Tech"
+      url: "/categories/tech/"
+      weight: 40
+    - name: "Systèmes"
+      url: "/categories/systemes/"
+      weight: 50
+    - name: "À propos"
+      url: "/about/"
+      weight: 60
+
+markup:
+  highlight:
+    style: "github-dark"
+    lineNos: true
+    codeFences: true
+
+outputs:
+  home: ["HTML", "RSS", "JSON"]
+
+taxonomies:
+  category: "categories"
+  tag: "tags"
+
+pagination:
+  pagerSize: 10

@@ -1,0 +1,367 @@
+{{ $title := .Get "title" | default "📬 Restez informé !" }}
+{{ $description := .Get "description" | default "Recevez les derniers articles et actualités tech directement dans votre boîte mail." }}
+{{ $placeholder := .Get "placeholder" | default "votre@email.com" }}
+{{ $button := .Get "button" | default "S'abonner" }}
+{{ $style := .Get "style" | default "default" }}
+
+<div class="newsletter-shortcode newsletter-{{ $style }}">
+    <div class="newsletter-container">
+        <div class="newsletter-icon">
+            {{ if eq $style "tech" }}
+                🚀
+            {{ else if eq $style "ai" }}
+                🤖
+            {{ else if eq $style "dev" }}
+                💻
+            {{ else }}
+                📧
+            {{ end }}
+        </div>
+        
+        <div class="newsletter-content">
+            <h3 class="newsletter-title">{{ $title }}</h3>
+            <p class="newsletter-description">{{ $description }}</p>
+        </div>
+        
+        {{ if .Site.Params.newsletter.enabled }}
+        <form class="newsletter-form" action="{{ .Site.Params.newsletter.action }}" method="post">
+            <div class="newsletter-input-group">
+                <input type="email" 
+                       name="email" 
+                       placeholder="{{ $placeholder }}" 
+                       required 
+                       class="newsletter-input"
+                       aria-label="Adresse email">
+                <button type="submit" class="newsletter-button">
+                    {{ $button }}
+                </button>
+            </div>
+            
+            <!-- Champs cachés pour le tracking -->
+            <input type="hidden" name="source" value="blog-shortcode">
+            <input type="hidden" name="page" value="{{ .Page.RelPermalink }}">
+            
+            <!-- GDPR compliance -->
+            <div class="newsletter-consent">
+                <label class="consent-checkbox">
+                    <input type="checkbox" name="consent" required>
+                    <span class="checkmark"></span>
+                    <span class="consent-text">
+                        J'accepte de recevoir la newsletter et confirme avoir lu la 
+                        <a href="/privacy" target="_blank">politique de confidentialité</a>
+                    </span>
+                </label>
+            </div>
+        </form>
+        {{ else }}
+        <div class="newsletter-disabled">
+            <p>Newsletter temporairement indisponible</p>
+        </div>
+        {{ end }}
+    </div>
+</div>
+
+<style>
+/* Newsletter Shortcode Styles */
+.newsletter-shortcode {
+    margin: 2.5rem 0;
+    padding: 0;
+}
+
+.newsletter-container {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background animations */
+.newsletter-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--accent-gradient);
+    border-radius: var(--border-radius-lg);
+    z-index: -1;
+    opacity: 0.1;
+    animation: pulse-border 3s ease-in-out infinite;
+}
+
+@keyframes pulse-border {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.3; }
+}
+
+.newsletter-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.newsletter-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.newsletter-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.newsletter-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.newsletter-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.newsletter-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.newsletter-button {
+    padding: 0.875rem 1.5rem;
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.newsletter-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+}
+
+.newsletter-consent {
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.consent-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.consent-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 3px;
+    background: var(--bg-primary);
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: var(--transition);
+}
+
+.consent-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.consent-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: -2px;
+    left: 2px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.consent-text {
+    color: var(--text-secondary);
+}
+
+.consent-text a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.consent-text a:hover {
+    text-decoration: underline;
+}
+
+/* Newsletter Disabled State */
+.newsletter-disabled {
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Style Variations */
+.newsletter-tech .newsletter-container {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%);
+    border-color: rgba(59, 130, 246, 0.2);
+}
+
+.newsletter-ai .newsletter-container {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.newsletter-dev .newsletter-container {
+    background: linear-gradient(135deg, rgba(245, 101, 101, 0.05) 0%, rgba(251, 191, 36, 0.05) 100%);
+    border-color: rgba(245, 101, 101, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .newsletter-container {
+        padding: 1.5rem;
+    }
+    
+    .newsletter-input-group {
+        flex-direction: column;
+    }
+    
+    .newsletter-button {
+        width: 100%;
+    }
+    
+    .newsletter-title {
+        font-size: 1.25rem;
+    }
+    
+    .newsletter-icon {
+        font-size: 2rem;
+    }
+    
+    .consent-checkbox {
+        font-size: 0.8rem;
+    }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .newsletter-container::before {
+        opacity: 0.05;
+    }
+    
+    .newsletter-input {
+        background: var(--bg-tertiary);
+    }
+    
+    .checkmark {
+        background: var(--bg-tertiary);
+    }
+}
+
+/* Animation for successful subscription */
+.newsletter-success {
+    background: var(--success-color) !important;
+    color: white !important;
+}
+
+.newsletter-success .newsletter-title::after {
+    content: ' ✅';
+}
+
+/* Loading state */
+.newsletter-loading .newsletter-button {
+    background: var(--text-tertiary);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.newsletter-loading .newsletter-button::after {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 0.5rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<script>
+// Newsletter form handling
+document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('.newsletter-form');
+    
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const container = this.closest('.newsletter-container');
+            const button = this.querySelector('.newsletter-button');
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // Add loading state
+            container.classList.add('newsletter-loading');
+            button.textContent = 'Inscription...';
+            
+            // Simulate API call (replace with actual implementation)
+            setTimeout(() => {
+                container.classList.remove('newsletter-loading');
+                container.classList.add('newsletter-success');
+                container.innerHTML = `
+                    <div class="newsletter-icon">🎉</div>
+                    <div class="newsletter-content">
+                        <h3 class="newsletter-title">Merci pour votre inscription !</h3>
+                        <p class="newsletter-description">
+                            Vous recevrez bientôt un email de confirmation à l'adresse <strong>${email}</strong>
+                        </p>
+                    </div>
+                `;
+            }, 2000);
+        });
+    });
+});
+</script>

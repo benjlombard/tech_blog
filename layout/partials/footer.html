@@ -1,0 +1,562 @@
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Newsletter Section -->
+        {{ if .Site.Params.newsletter.enabled }}
+        <section class="footer-newsletter">
+            <div class="newsletter-content">
+                <h3 class="newsletter-title">
+                    <span class="newsletter-icon">📧</span>
+                    Newsletter TechVeille
+                </h3>
+                <p class="newsletter-description">
+                    Recevez un résumé hebdomadaire des meilleurs articles tech directement dans votre boîte mail
+                </p>
+                <form class="newsletter-form" action="{{ .Site.Params.newsletter.action }}" method="post">
+                    <div class="newsletter-input-group">
+                        <input 
+                            type="email" 
+                            name="email"
+                            placeholder="votre@email.com" 
+                            required 
+                            class="newsletter-input"
+                            aria-label="Adresse email pour la newsletter"
+                        >
+                        <button type="submit" class="newsletter-btn">
+                            <span>S'abonner</span>
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </div>
+                    <p class="newsletter-privacy">
+                        <small>Pas de spam, désabonnement en un clic. Voir notre <a href="/privacy">politique de confidentialité</a>.</small>
+                    </p>
+                </form>
+            </div>
+        </section>
+        {{ end }}
+
+        <!-- Main Footer Content -->
+        <div class="footer-main">
+            <div class="footer-grid">
+                <!-- Brand Section -->
+                <div class="footer-section footer-brand">
+                    <div class="brand-info">
+                        <a href="/" class="footer-logo">
+                            <span class="brand-icon">⚡</span>
+                            <span class="brand-text">{{ .Site.Title }}</span>
+                        </a>
+                        <p class="brand-description">{{ .Site.Params.description }}</p>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="social-links">
+                        <h4 class="social-title">Suivez-moi</h4>
+                        <div class="social-grid">
+                            {{ if .Site.Params.twitter }}
+                            <a href="https://twitter.com/{{ .Site.Params.twitter }}" 
+                               class="social-link twitter" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               aria-label="Suivre sur Twitter">
+                                <span class="social-icon">🐦</span>
+                                <span class="social-name">Twitter</span>
+                            </a>
+                            {{ end }}
+                            
+                            {{ if .Site.Params.github }}
+                            <a href="https://github.com/{{ .Site.Params.github }}" 
+                               class="social-link github" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               aria-label="Voir les projets GitHub">
+                                <span class="social-icon">🔧</span>
+                                <span class="social-name">GitHub</span>
+                            </a>
+                            {{ end }}
+                            
+                            {{ if .Site.Params.linkedin }}
+                            <a href="https://linkedin.com/in/{{ .Site.Params.linkedin }}" 
+                               class="social-link linkedin" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               aria-label="Connecter sur LinkedIn">
+                                <span class="social-icon">💼</span>
+                                <span class="social-name">LinkedIn</span>
+                            </a>
+                            {{ end }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="footer-section footer-nav">
+                    <h4 class="footer-section-title">Navigation</h4>
+                    <nav class="footer-links">
+                        {{ range .Site.Menus.main }}
+                        <a href="{{ .URL }}" class="footer-link">{{ .Name }}</a>
+                        {{ end }}
+                        <a href="/sitemap.xml" class="footer-link">Plan du site</a>
+                        <a href="/index.xml" class="footer-link">Flux RSS</a>
+                    </nav>
+                </div>
+
+                <!-- Categories -->
+                <div class="footer-section footer-categories">
+                    <h4 class="footer-section-title">Catégories</h4>
+                    <nav class="footer-links">
+                        <a href="/categories/ia/" class="footer-link">
+                            <span class="link-icon">🤖</span>
+                            Intelligence Artificielle
+                        </a>
+                        <a href="/categories/tech/" class="footer-link">
+                            <span class="link-icon">💻</span>
+                            Technologies
+                        </a>
+                        <a href="/categories/systemes/" class="footer-link">
+                            <span class="link-icon">🛠️</span>
+                            Systèmes & DevOps
+                        </a>
+                        <a href="/categories/dev/" class="footer-link">
+                            <span class="link-icon">⚡</span>
+                            Développement
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Support Section -->
+                <div class="footer-section footer-support">
+                    <h4 class="footer-section-title">Soutenir le blog</h4>
+                    <p class="support-description">
+                        Soutenez la création de contenu gratuit et de qualité
+                    </p>
+                    <div class="support-links">
+                        {{ if .Site.Params.patreon }}
+                        <a href="https://patreon.com/{{ .Site.Params.patreon }}" 
+                           class="support-link patreon" 
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                            <span class="support-icon">❤️</span>
+                            <span class="support-text">
+                                <strong>Patreon</strong>
+                                <small>Soutien mensuel</small>
+                            </span>
+                        </a>
+                        {{ end }}
+                        
+                        {{ if .Site.Params.tipeee }}
+                        <a href="https://tipeee.com/{{ .Site.Params.tipeee }}" 
+                           class="support-link tipeee" 
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                            <span class="support-icon">☕</span>
+                            <span class="support-text">
+                                <strong>Tipeee</strong>
+                                <small>Offrir un café</small>
+                            </span>
+                        </a>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <div class="copyright">
+                    <p>&copy; {{ now.Year }} {{ .Site.Params.author }}. Tous droits réservés.</p>
+                </div>
+                
+                <div class="footer-meta">
+                    <nav class="footer-meta-links">
+                        <a href="/privacy" class="meta-link">Confidentialité</a>
+                        <a href="/terms" class="meta-link">Mentions légales</a>
+                        <a href="/contact" class="meta-link">Contact</a>
+                    </nav>
+                    
+                    <div class="footer-stats">
+                        <span class="stat-item">
+                            <span class="stat-icon">📚</span>
+                            {{ len .Site.RegularPages }} articles
+                        </span>
+                        <span class="stat-separator">•</span>
+                        <span class="stat-item">
+                            <span class="stat-icon">🏷️</span>
+                            {{ len .Site.Taxonomies.categories }} catégories
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="back-to-top" aria-label="Retour en haut de page">
+            <span class="back-to-top-icon">↑</span>
+        </button>
+    </div>
+</footer>
+
+<style>
+/* Footer Styles */
+.footer {
+    background: linear-gradient(135deg, 
+        var(--bg-secondary) 0%, 
+        color-mix(in srgb, var(--bg-secondary) 95%, var(--accent-primary) 5%) 100%
+    );
+    border-top: 1px solid var(--border-color);
+    margin-top: 4rem;
+    position: relative;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Newsletter Section */
+.footer-newsletter {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.newsletter-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.newsletter-description {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.newsletter-input-group {
+    display: flex;
+    max-width: 400px;
+    margin: 0 auto 1rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.newsletter-input:focus {
+    outline: none;
+    background: color-mix(in srgb, var(--bg-primary) 95%, var(--accent-primary) 5%);
+}
+
+.newsletter-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.newsletter-btn:hover {
+    background: var(--accent-secondary);
+    transform: translateX(2px);
+}
+
+.newsletter-privacy {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.newsletter-privacy a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+/* Main Footer */
+.footer-main {
+    padding: 3rem 0 2rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 3rem;
+}
+
+.footer-section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+/* Brand Section */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.brand-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.social-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.social-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.social-link:hover {
+    color: var(--accent-primary);
+    background: color-mix(in srgb, var(--bg-primary) 50%, transparent 50%);
+    transform: translateX(4px);
+}
+
+/* Navigation Links */
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-link:hover {
+    color: var(--accent-primary);
+    transform: translateX(4px);
+}
+
+/* Support Section */
+.support-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.support-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.support-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.support-link:hover {
+    border-color: var(--accent-primary);
+    background: color-mix(in srgb, var(--bg-primary) 95%, var(--accent-primary) 5%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.support-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.support-text small {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    border-top: 1px solid var(--border-color);
+    padding: 2rem 0;
+}
+
+.footer-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.copyright {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-meta-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.meta-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.meta-link:hover {
+    color: var(--accent-primary);
+}
+
+.footer-stats {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.stat-separator {
+    opacity: 0.5;
+}
+
+/* Back to Top */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: var(--transition);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: var(--accent-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-meta {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .newsletter-input-group {
+        flex-direction: column;
+        max-width: 300px;
+    }
+    
+    .newsletter-input,
+    .newsletter-btn {
+        padding: 1rem;
+    }
+    
+    .support-links {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-container {
+        padding: 0 0.5rem;
+    }
+    
+    .footer-newsletter,
+    .footer-main {
+        padding: 2rem 0;
+    }
+    
+    .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 45px;
+        height: 45px;
+    }
+}
+</style>

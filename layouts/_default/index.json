@@ -1,0 +1,12 @@
+{
+  "articles": [
+    {{ range $index, $page := .Site.RegularPages }}
+    {
+      "title": "{{ $page.Title }}",
+      "url": "{{ $page.Permalink }}",
+      "content": "{{ $page.Summary | plainify | htmlEscape }}",
+      "date": "{{ $page.Date.Format "2006-01-02" }}"
+    }{{ if ne $index (sub (len $.Site.RegularPages) 1) }},{{ end }}
+    {{ end }}
+  ]
+}

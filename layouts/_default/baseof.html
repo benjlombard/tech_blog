@@ -3,39 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
     <meta name="description" content="{{ .Description | default .Site.Params.description }}">
+    <!-- Balises SEO avancées -->
+    <meta property="og:title" content="{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}">
+    <meta property="og:description" content="{{ .Description | default .Site.Params.description }}">
+    <meta property="og:image" content="{{ .Permalink }}images/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}assets/css/style.css">
     {{ block "head" . }}{{ end }}
 </head>
 <body>
     {{ block "header" . }}
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-brand">
-                <a href="/" class="brand-link">
-                    <span class="brand-icon">⚡</span>
-                    {{ .Site.Title }}
-                </a>
-            </div>
-            
-            <div class="nav-menu" id="nav-menu">
-                <a href="/" class="nav-link">Accueil</a>
-                <a href="/posts" class="nav-link">Articles</a>
-                <a href="/categories" class="nav-link">Catégories</a>
-                <a href="/about" class="nav-link">À propos</a>
-            </div>
-            
-            <div class="nav-actions">
-                <button class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
-                <button class="mobile-toggle" id="mobile-toggle">
-                    <span class="hamburger"></span>
-                </button>
-            </div>
-        </nav>
-    </header>
+    {{ partial "header.html" . }}
     {{ end }}
 
     <main class="main">
@@ -51,12 +32,15 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Kyrostech. Fait avec ❤️ et Hugo.</p>
+            <p>© 2025 Kyrostech. Fait avec ❤️ et Hugo.</p>
         </div>
     </footer>
     {{ end }}
 
-    <script src="/js/main.js"></script>
+    <script src="{{ .Site.BaseURL }}js/main.js"></script>
+    <!-- Scripts pour la recherche -->
+    <script src="{{ .Site.BaseURL }}js/lunr.min.js"></script>
+    <script src="{{ .Site.BaseURL }}js/search.js"></script>
     {{ block "scripts" . }}{{ end }}
 </body>
 </html>

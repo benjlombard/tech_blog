@@ -79,7 +79,7 @@ sitemap:
 # RSS complet et SEO
 outputs:
   home: ["HTML", "RSS", "JSON"]
-  page: ["HTML", "RSS"]  # Ajout RSS pour les pages individuelles
+  page: ["HTML", "RSS", "JSON"]  # Ajout RSS pour les pages individuelles
   section: ["HTML", "RSS"]
 
 # Taxonomies enrichies

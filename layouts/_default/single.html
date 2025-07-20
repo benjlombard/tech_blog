@@ -280,7 +280,23 @@
 
     <!-- Article Header -->
     <header class="article-header">
-        <div class="container">
+        <div class="container" style="position: relative;">
+             <!-- ========= NOUVEAU : Bouton Favori ========= -->
+        {{ if eq .Type "posts" }}
+        <button class="favorite-btn" 
+                data-article-id="{{ .File.BaseFileName | default (.Title | urlize) }}"
+                data-article-title="{{ .Title }}"
+                data-article-url="{{ .Permalink }}"
+                data-article-excerpt="{{ .Description | default .Summary | plainify | truncate 150 }}"
+                data-article-category="{{ index .Params.categories 0 | default "general" | urlize }}"
+                data-article-category-label="{{ index .Params.categories 0 | default "Général" }}"
+                data-article-date="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}"
+                data-article-reading-time="{{ .ReadingTime }}"
+                title="Ajouter aux favoris"
+                aria-label="Ajouter aux favoris">
+            <span class="heart">🤍</span>
+        </button>
+        {{ end }}
             <!-- Article Meta (seulement pour les posts) -->
             {{ if eq .Type "posts" }}
             <div class="article-meta">

@@ -1,0 +1,42 @@
+{{- $articles := slice -}}
+{{- range where .Site.RegularPages "Type" "posts" -}}
+  {{- $article := dict 
+    "id" (.File.BaseFileName | default .Title | urlize)
+    "title" .Title
+    "excerpt" (.Description | default .Summary | plainify | truncate 150)
+    "url" .Permalink
+    "date" .Date.Format "2006-01-02T15:04:05Z07:00"
+    "readingTime" .ReadingTime
+    "category" (index .Params.categories 0 | default "general" | urlize)
+    "categoryLabel" (index .Params.categories 0 | default "Général")
+    "tags" .Params.tags
+  -}}
+  {{- $articles = $articles | append $article -}}
+{{- end -}}
+
+{{- $categories := slice -}}
+{{- range .Site.Taxonomies.categories -}}
+  {{- $categories = $categories | append .Page.Title -}}
+{{- end -}}
+
+{{- $tags := slice -}}
+{{- range .Site.Taxonomies.tags -}}
+  {{- $tags = $tags | append .Page.Title -}}
+{{- end -}}
+
+{
+  "articles": {{ $articles | jsonify }},
+  "categories": {{ $categories | jsonify }},
+  "tags": {{ $tags | jsonify }},
+  "total": {{ len $articles }},
+  "lastUpdated": "{{ now.Format "2006-01-02T15:04:05Z07:00" }}",
+  "favorites": {
+    "enabled": true,
+    "storage": "localStorage",
+    "features": [
+      "add_remove",
+      "export_import", 
+      "persistent_storage"
+    ]
+  }
+}

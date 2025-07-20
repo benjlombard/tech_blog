@@ -1,3 +1,55 @@
 {{ define "main" }}
-<!-- Intégrer le HTML de l'artefact ici -->
+<div class="favorites-page">
+    <div class="container">
+        <header class="page-header">
+            <h1>❤️ Mes Articles Favoris</h1>
+            <p>Retrouvez tous vos articles préférés en un seul endroit</p>
+        </header>
+
+        <div class="favorites-nav">
+            <div class="favorites-count" id="favoritesCount">
+                0 articles favoris
+            </div>
+            <div class="favorites-actions">
+                <button class="btn-favorites" id="exportBtn">
+                    📤 Exporter
+                </button>
+                <input type="file" id="importFile" accept=".json" style="display: none;">
+                <button class="btn-favorites" id="importBtn">
+                    📥 Importer
+                </button>
+                <button class="btn-favorites btn-danger" id="clearAllBtn">
+                    🗑️ Tout supprimer
+                </button>
+            </div>
+        </div>
+
+        <div class="articles-grid" id="favoritesGrid">
+            <!-- Les articles favoris seront injectés ici par JavaScript -->
+        </div>
+
+        <div class="empty-favorites" id="emptyState" style="display: none;">
+            <div class="empty-favorites-icon">💔</div>
+            <h3>Aucun article favori</h3>
+            <p>Commencez à marquer vos articles préférés en cliquant sur le cœur ❤️ sur chaque article.</p>
+            <a href="/posts/" class="btn btn-primary">Découvrir les articles</a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // S'assurer que le gestionnaire de favoris est chargé
+    if (window.kyrostechFavorites) {
+        window.kyrostechFavorites.renderFavoritesPage();
+    } else {
+        // Réessayer après un délai
+        setTimeout(() => {
+            if (window.kyrostechFavorites) {
+                window.kyrostechFavorites.renderFavoritesPage();
+            }
+        }, 100);
+    }
+});
+</script>
 {{ end }}

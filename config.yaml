@@ -194,6 +194,10 @@ menu:
     - name: "Articles"
       url: "/posts/"
       weight: 20
+
+    - name: "❤️ Favoris"
+      url: "/favorites/"
+      weight: 27
       
     - name: "Catégories"
       url: "/categories/"
@@ -209,9 +213,7 @@ menu:
       url: "/contact/"
       weight: 50
 
-    - name: "❤️ Favoris"
-      url: "/favorites/"
-      weight: 25
+    
 
   # Sous-menu des catégories (affiché au hover)
   categories:

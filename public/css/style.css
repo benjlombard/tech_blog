@@ -2219,16 +2219,14 @@ a:hover {
 }
 
 
-
-
-
+/* ===== STYLES FAVORIS ===== */
 .favorite-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 2.5rem;
     height: 2.5rem;
-    background: transparent;
+    background: rgba(30, 41, 59, 0.8);
     border: 2px solid var(--border);
     border-radius: 50%;
     cursor: pointer;
@@ -2239,12 +2237,14 @@ a:hover {
     top: 1rem;
     right: 1rem;
     z-index: 10;
+    backdrop-filter: blur(10px);
 }
 
 .favorite-btn:hover {
     border-color: #ef4444;
     color: #ef4444;
     transform: scale(1.1);
+    background: rgba(239, 68, 68, 0.1);
 }
 
 .favorite-btn.favorited {
@@ -2256,6 +2256,7 @@ a:hover {
 .favorite-btn.favorited:hover {
     background: #dc2626;
     border-color: #dc2626;
+    transform: scale(1.1);
 }
 
 .favorite-btn .heart {
@@ -2273,8 +2274,27 @@ a:hover {
     100% { transform: scale(1); }
 }
 
+/* Page favoris */
 .favorites-page {
     padding: var(--space-8) 0;
+    min-height: 60vh;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+    padding: var(--space-8) 0;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+}
+
+.page-header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: var(--space-4);
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .favorites-nav {
@@ -2296,6 +2316,7 @@ a:hover {
     gap: var(--space-2);
     color: var(--text-secondary);
     font-weight: 500;
+    font-size: var(--text-lg);
 }
 
 .favorites-actions {
@@ -2314,7 +2335,7 @@ a:hover {
     border-radius: var(--radius-lg);
     color: var(--text-primary);
     text-decoration: none;
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
@@ -2324,6 +2345,7 @@ a:hover {
     background: var(--bg-secondary);
     transform: translateY(-1px);
     color: var(--text-primary);
+    box-shadow: var(--shadow-md);
 }
 
 .btn-danger {
@@ -2350,6 +2372,21 @@ a:hover {
 .empty-favorites-icon {
     font-size: 4rem;
     margin-bottom: var(--space-4);
+    opacity: 0.7;
+}
+
+.empty-favorites h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+    font-size: var(--text-2xl);
+}
+
+.empty-favorites p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-8);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Responsive pour les favoris */
@@ -2369,5 +2406,9 @@ a:hover {
     
     .favorites-actions {
         justify-content: center;
+    }
+    
+    .page-header {
+        padding: var(--space-6) var(--space-4);
     }
 }

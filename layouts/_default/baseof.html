@@ -44,43 +44,28 @@
         </a>
         
         <nav class="main-nav">
+            
+            
             <ul class="nav-menu" id="nav-menu">
+                {{ range sort .Site.Menus.main "Weight" }}
                 <li>
-                    <a href="/" class="nav-link {{ if eq .RelPermalink "/" }}active{{ end }}">
-                        Accueil
-                    </a>
+                    {{ if .HasChildren }}
+                        <a href="{{ .URL }}" class="nav-link has-dropdown {{ if eq .Section .Page.Section }}active{{ end }}">
+                            {{ .Name }}
+                        </a>
+                        <!-- Dropdown menu pour les catégories -->
+                        <div class="dropdown-menu">
+                            {{ range .Site.Menus.categories }}
+                            <a href="{{ .URL }}" class="dropdown-link">{{ .Name }}</a>
+                            {{ end }}
+                        </div>
+                    {{ else }}
+                        <a href="{{ .URL }}" class="nav-link {{ if eq .URL $.RelPermalink }}active{{ end }}">
+                            {{ .Name }}
+                        </a>
+                    {{ end }}
                 </li>
-                
-                <li>
-                    <a href="/posts/" class="nav-link {{ if eq .Section "posts" }}active{{ end }}">
-                        Articles
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="/categories/" class="nav-link has-dropdown {{ if eq .Section "categories" }}active{{ end }}">
-                        Catégories
-                    </a>
-                    <!-- Dropdown menu -->
-                    <div class="dropdown-menu">
-                        <a href="/categories/ia/" class="dropdown-link">Intelligence Artificielle</a>
-                        <a href="/categories/tech/" class="dropdown-link">Technologies</a>
-                        <a href="/categories/systemes/" class="dropdown-link">Systèmes</a>
-                        <a href="/categories/devops/" class="dropdown-link">DevOps</a>
-                    </div>
-                </li>
-                
-                <li>
-                    <a href="/about/" class="nav-link {{ if eq .RelPermalink "/about/" }}active{{ end }}">
-                        À propos
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="/contact/" class="nav-link {{ if eq .RelPermalink "/contact/" }}active{{ end }}">
-                        Contact
-                    </a>
-                </li>
+                {{ end }}
             </ul>
         </nav>
         
@@ -144,6 +129,7 @@
 
     <!-- JavaScript -->
     <script src="{{ .Site.BaseURL }}js/main.js"></script>
+    <script src="{{ .Site.BaseURL }}js/favorites.js"></script>
     
     <!-- Service Worker -->
     <script>

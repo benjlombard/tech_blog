@@ -459,26 +459,38 @@ window.addEventListener('unhandledrejection', function(e) {
  * Initialisation du système de favoris
  */
 function initFavorites() {
-    // Le script favorites.js se charge automatiquement
-    // Mais on peut ajouter des événements personnalisés ici
-    
-    window.addEventListener('favoritesChanged', function(event) {
-        updateFavoritesBadge(event.detail.count);
-    });
-    
-    // Mise à jour initiale du badge
-    setTimeout(() => {
-        if (window.kyrostechFavorites) {
+    // Attendre que le script favorites.js soit chargé
+    const checkFavorites = () => {
+        if (window.KyrostechFavorites) {
+            // Initialiser le gestionnaire de favoris
+            if (!window.kyrostechFavorites) {
+                window.kyrostechFavorites = new window.KyrostechFavorites();
+            }
+            
+            // Écouter les changements de favoris
+            window.addEventListener('favoritesChanged', function(event) {
+                updateFavoritesBadge(event.detail.count);
+            });
+            
+            // Mise à jour initiale du badge
             updateFavoritesBadge(window.kyrostechFavorites.getFavoritesCount());
+            
+            console.log('✅ Système de favoris initialisé');
+        } else {
+            // Réessayer après 100ms
+            setTimeout(checkFavorites, 100);
         }
-    }, 100);
+    };
+    
+    checkFavorites();
 }
 
 function updateFavoritesBadge(count) {
-    const badge = document.getElementById('favoritesBadge');
-    if (badge) {
-        badge.textContent = count > 0 ? count : '';
-        badge.style.display = count > 0 ? 'inline-block' : 'none';
+    // Mettre à jour le texte du lien favoris dans la navigation
+    const favLink = document.querySelector('a[href="/favorites/"]');
+    if (favLink && count > 0) {
+        favLink.innerHTML = `❤️ Favoris (${count})`;
+    } else if (favLink) {
+        favLink.innerHTML = '❤️ Favoris';
     }
 }
-

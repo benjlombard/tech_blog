@@ -67,7 +67,7 @@ menu:
 
 # SEO avancé
 permalinks:
-  posts: "/:slug/"  # Modifié : supprime year/month pour des URLs plus simples et SEO-friendly
+  posts: "/:slug/"
 
 # Sitemap optimisé
 sitemap:
@@ -102,6 +102,41 @@ security:
 build:
   writeStats: true  # Génère des stats pour débogage
   noChmod: true  # Optimise les permissions
+
+# config.yaml
+module:
+  imports:
+    - path: github.com/future-wd/hugo-seo
+    - path: github.com/hugomods/images
+    - path: github.com/hugomods/search
+    - path: github.com/hugomods/pwa
+    - path: github.com/hugomods/icons
+
+params:
+  seo:
+    title: true
+    meta: true
+    og: true
+    twitter: true
+    jsonld:
+      article: true
+      breadcrumbs: true
+
+  images:
+    quality: 85
+    webp: true
+    lazy: true
+
+  search:
+    indexPaginate: 50
+    fuseOptions:
+      threshold: 0.3
+
+  pwa:
+    enable: true
+    name: "Tech Blog"
+    short_name: "Tech"
+    theme_color: "#0057e7"
 
 # Langues
 languages:

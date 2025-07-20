@@ -1,36 +1,43 @@
-baseURL: "https://Kyrostech.dev"
+baseURL: "https://kyrostech.dev"
 languageCode: "fr-FR"
 title: "Kyrostech - Blog IA & Tech"
+enableRobotsTXT: true  # Ajout pour générer robots.txt automatiquement
 
+minify:
+  disableXML: false  # Garde la minification des fichiers XML (comme sitemap.xml)
+  minifyOutput: true  # Active la minification des HTML, CSS, JS, etc.
+  
 # SEO amélioré
 params:
   author: "Kyrostech"
   description: "Blog spécialisé en Intelligence Artificielle, Technologies et Systèmes. Articles quotidiens sur les dernières innovations tech avec explications accessibles."
   keywords: ["IA", "Intelligence Artificielle", "Tech", "Informatique", "Base de données", "Systèmes", "DevOps", "Machine Learning", "Docker", "Cloud"]
-  
+  images: ["/images/logo.png"]  # Ajout pour Open Graph, remplace par ton logo ou image par défaut
+  copyright: "© 2025 Kyrostech - Tous droits réservés"  # Ajout pour le pied de page
+
   # Réseaux sociaux - complétés
   twitter: "@kyrostechdev"
   github: "kyrostech"
   linkedin: "kyrostech"
-  
+
   # Analytics activés
   googleAnalytics: "G-XXXXXXXXXX"
-  
+
   # Monétisation - liens réels
   patreon: "kyrostech"
   tipeee: "kyrostech"
-  
+
   # Newsletter - service réel
   newsletter:
     enabled: true
     action: "https://kyrostech.us21.list-manage.com/subscribe/post?u=XXXXX&id=XXXXX"
-    
+
   # Commentaires activés
   comments:
     enabled: true
     disqus: "kyrostech-blog"
 
-# Menu optimisé
+# Menu optimisé et hiérarchisé
 menu:
   main:
     - name: "Accueil"
@@ -39,36 +46,40 @@ menu:
     - name: "Articles"
       url: "/posts/"
       weight: 20
+    - name: "Catégories"
+      hasChildren: true  # Ajout pour un menu déroulant
+      weight: 30
     - name: "IA"
       url: "/categories/ia/"
-      weight: 30
+      weight: 10
     - name: "Tech"
       url: "/categories/tech/"
-      weight: 40
+      weight: 20
     - name: "Systèmes"
       url: "/categories/systemes/"
-      weight: 50
+      weight: 30
     - name: "Docker"
       url: "/categories/docker/"
-      weight: 45
+      weight: 40
     - name: "À propos"
       url: "/about/"
       weight: 60
 
 # SEO avancé
 permalinks:
-  posts: "/:year/:month/:slug/"
+  posts: "/:slug/"  # Modifié : supprime year/month pour des URLs plus simples et SEO-friendly
 
 # Sitemap optimisé
 sitemap:
-  changefreq: daily
-  filename: sitemap.xml
+  changefreq: "daily"
+  filename: "sitemap.xml"
   priority: 0.8
+  sitemapTaxonomies: true  # Ajout pour inclure les taxonomies
 
-# RSS complet
+# RSS complet et SEO
 outputs:
   home: ["HTML", "RSS", "JSON"]
-  page: ["HTML"]
+  page: ["HTML", "RSS"]  # Ajout RSS pour les pages individuelles
   section: ["HTML", "RSS"]
 
 # Taxonomies enrichies
@@ -76,3 +87,31 @@ taxonomies:
   category: "categories"
   tag: "tags"
   author: "authors"
+
+# Performance et minification
+minify:
+  disableXML: false  # Garde la minification XML
+  minifyOutput: true  # Minifie HTML, CSS, JS générés
+
+# Sécurité et headers HTTP
+security:
+  enableInlineScript: false  # Désactive les scripts inline pour la sécurité
+  enableInlineStyle: false  # Désactive les styles inline
+
+# Paramètres additionnels pour Hugo
+build:
+  writeStats: true  # Génère des stats pour débogage
+  noChmod: true  # Optimise les permissions
+
+# Langues
+languages:
+  fr:
+    languageName: "Français"
+    weight: 1
+    title: "Kyrostech - Blog IA & Tech"
+
+# Markup (syntaxe YAML corrigée)
+markup:
+  goldmark:
+    renderer:
+      unsafe: false  # Désactive le rendu HTML non sécurisé

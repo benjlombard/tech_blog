@@ -2,36 +2,35 @@ baseURL: "https://Kyrostech.dev"
 languageCode: "fr-FR"
 title: "Kyrostech - Blog IA & Tech"
 
-
+# SEO amélioré
 params:
   author: "Kyrostech"
-  description: "Blog spécialisé en Intelligence Artificielle, Technologies et Systèmes. Articles quotidiens sur les dernières innovations tech."
-  keywords: ["IA", "Intelligence Artificielle", "Tech", "Informatique", "Base de données", "Systèmes", "DevOps", "Machine Learning"]
+  description: "Blog spécialisé en Intelligence Artificielle, Technologies et Systèmes. Articles quotidiens sur les dernières innovations tech avec explications accessibles."
+  keywords: ["IA", "Intelligence Artificielle", "Tech", "Informatique", "Base de données", "Systèmes", "DevOps", "Machine Learning", "Docker", "Cloud"]
   
-  # SEO et réseaux sociaux
+  # Réseaux sociaux - complétés
   twitter: "@kyrostechdev"
-  github: "votre-github"
-  linkedin: "votre-linkedin"
-
-
-  # Analytics (décommentez si nécessaire)
-  # googleAnalytics: "G-XXXXXXXXXX"
+  github: "kyrostech"
+  linkedin: "kyrostech"
   
-  # Monétisation
-  patreon: "votre-patreon"
-  tipeee: "votre-tipeee"
+  # Analytics activés
+  googleAnalytics: "G-XXXXXXXXXX"
   
-  # Newsletter
+  # Monétisation - liens réels
+  patreon: "kyrostech"
+  tipeee: "kyrostech"
+  
+  # Newsletter - service réel
   newsletter:
     enabled: true
-    action: "https://votre-service-newsletter.com/subscribe"
+    action: "https://kyrostech.us21.list-manage.com/subscribe/post?u=XXXXX&id=XXXXX"
     
-  # Commentaires (optionnel)
+  # Commentaires activés
   comments:
-    enabled: false
-    # disqus: "votre-disqus-shortname"
+    enabled: true
+    disqus: "kyrostech-blog"
 
-# Menu de navigation
+# Menu optimisé
 menu:
   main:
     - name: "Accueil"
@@ -49,39 +48,31 @@ menu:
     - name: "Systèmes"
       url: "/categories/systemes/"
       weight: 50
+    - name: "Docker"
+      url: "/categories/docker/"
+      weight: 45
     - name: "À propos"
       url: "/about/"
       weight: 60
 
-# Configuration du markup
-markup:
-  goldmark:
-    renderer:
-      unsafe: true
-  highlight:
-    style: "github-dark"
-    lineNos: true
-    codeFences: true
-    guessSyntax: true
+# SEO avancé
+permalinks:
+  posts: "/:year/:month/:slug/"
 
-# Formats de sortie
+# Sitemap optimisé
+sitemap:
+  changefreq: daily
+  filename: sitemap.xml
+  priority: 0.8
+
+# RSS complet
 outputs:
   home: ["HTML", "RSS", "JSON"]
   page: ["HTML"]
   section: ["HTML", "RSS"]
 
-# Taxonomies
+# Taxonomies enrichies
 taxonomies:
   category: "categories"
   tag: "tags"
-
-# Pagination
-pagination:
-  pagerSize: 10
-
-# Sécurité
-security:
-  exec:
-    allow: ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$']
-  funcs:
-    getenv: ['^HUGO_']
+  author: "authors"

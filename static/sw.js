@@ -13,9 +13,11 @@ const PRECACHE_URLS = [
   '/',
   '/css/style.css',
   '/js/main.js',
+  '/js/favorites.js',
   '/js/lunr.min.js',
   '/manifest.json',
   '/offline/',
+  '/favorites/',
   '/images/logo.png',
   '/images/og-default.jpg'
 ];

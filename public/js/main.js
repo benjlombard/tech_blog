@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollEffects();
     initNewsletterForm();
     initAnimations();
+    initFavorites();
     
     console.log('🚀 Kyrostech loaded successfully');
 });
@@ -454,5 +455,30 @@ window.addEventListener('unhandledrejection', function(e) {
 });
 
 
+/**
+ * Initialisation du système de favoris
+ */
+function initFavorites() {
+    // Le script favorites.js se charge automatiquement
+    // Mais on peut ajouter des événements personnalisés ici
+    
+    window.addEventListener('favoritesChanged', function(event) {
+        updateFavoritesBadge(event.detail.count);
+    });
+    
+    // Mise à jour initiale du badge
+    setTimeout(() => {
+        if (window.kyrostechFavorites) {
+            updateFavoritesBadge(window.kyrostechFavorites.getFavoritesCount());
+        }
+    }, 100);
+}
 
+function updateFavoritesBadge(count) {
+    const badge = document.getElementById('favoritesBadge');
+    if (badge) {
+        badge.textContent = count > 0 ? count : '';
+        badge.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+}
 

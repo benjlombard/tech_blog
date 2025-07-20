@@ -84,5 +84,15 @@
       "postgresql", "database", "sql", "admin"
     ],
     "total": 6,
-    "lastUpdated": "2025-07-20T10:00:00Z"
+    "lastUpdated": "2025-07-20T10:00:00Z",
+    "favorites": {
+        "enabled": true,
+        "storage": "localStorage",
+        "features": [
+            "add_remove",
+            "export_import", 
+            "persistent_storage",
+            "cross_device_sync"
+        ]
+    }
   }

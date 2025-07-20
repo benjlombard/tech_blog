@@ -209,6 +209,10 @@ menu:
       url: "/contact/"
       weight: 50
 
+    - name: "❤️ Favoris"
+      url: "/favorites/"
+      weight: 25
+
   # Sous-menu des catégories (affiché au hover)
   categories:
     - name: "Intelligence Artificielle"

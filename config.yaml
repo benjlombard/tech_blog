@@ -1,152 +1,417 @@
+# Configuration Hugo optimisée pour Kyrostech
 baseURL: "https://kyrostech.dev"
 languageCode: "fr-FR"
+defaultContentLanguage: "fr"
 title: "Kyrostech - Blog IA & Tech"
-enableRobotsTXT: true  # Ajout pour générer robots.txt automatiquement
+description: "Votre source quotidienne d'actualités en Intelligence Artificielle et technologies. Articles experts, analyses approfondies et guides pratiques."
 
+# Configuration de base
+enableRobotsTXT: true
+enableGitInfo: true
+enableEmoji: true
+hasCJKLanguage: false
+enableInlineShortcodes: true
+
+# Gestion des URLs
+canonifyURLs: false
+relativeURLs: false
+uglyURLs: false
+
+# Timeout et limites
+timeout: "30s"
+ignoreCache: false
+
+# Configuration de build
+build:
+  publishDir: "public"
+  writeStats: true
+  noChmod: false
+  noTimes: false
+
+# Configuration des médias
+imaging:
+  resampleFilter: "Lanczos"
+  quality: 85
+  anchor: "Smart"
+  bgColor: "#ffffff"
+  hint: "photo"
+
+# Minification et optimisation
 minify:
-  disableXML: false  # Garde la minification des fichiers XML (comme sitemap.xml)
-  minifyOutput: true  # Active la minification des HTML, CSS, JS, etc.
-  
-# SEO amélioré
-params:
-  author: "Kyrostech"
-  description: "Blog spécialisé en Intelligence Artificielle, Technologies et Systèmes. Articles quotidiens sur les dernières innovations tech avec explications accessibles."
-  keywords: ["IA", "Intelligence Artificielle", "Tech", "Informatique", "Base de données", "Systèmes", "DevOps", "Machine Learning", "Docker", "Cloud"]
-  images: ["/images/logo.png"]  # Ajout pour Open Graph, remplace par ton logo ou image par défaut
-  copyright: "© 2025 Kyrostech - Tous droits réservés"  # Ajout pour le pied de page
+  disableXML: false
+  disableJSON: false
+  disableJS: false
+  disableCSS: false
+  disableHTML: false
+  disableSVG: false
+  minifyOutput: true
+  tdewolff:
+    html:
+      keepDefaultAttrVals: true
+      keepDocumentTags: true
+      keepEndTags: true
+      keepQuotes: true
+      keepWhitespace: false
+    css:
+      keepCSS2: true
+      precision: 0
+    js:
+      keepVarNames: false
+      precision: 0
+    json:
+      precision: 0
+    svg:
+      precision: 0
+    xml:
+      keepWhitespace: false
 
-  # Réseaux sociaux - complétés
-  twitter: "@kyrostechdev"
+# SEO et méta-données améliorées
+params:
+  # Informations de base
+  author: "Kyrostech"
+  email: "contact@kyrostech.dev"
+  description: "Blog spécialisé en Intelligence Artificielle, Technologies et Systèmes. Articles quotidiens sur les dernières innovations tech avec explications accessibles."
+  keywords: 
+    - "Intelligence Artificielle"
+    - "IA"
+    - "Machine Learning"
+    - "Technologies"
+    - "Développement"
+    - "DevOps"
+    - "Systèmes"
+    - "Cloud"
+    - "Docker"
+    - "Kubernetes"
+    - "Python"
+    - "JavaScript"
+    - "React"
+    - "Vue.js"
+    - "Node.js"
+    - "Actualités Tech"
+  
+  # Images par défaut
+  images: 
+    - "/images/og-default.jpg"
+  logo: "/images/logo.png"
+  favicon: "/favicon.ico"
+  
+  # Copyright et mentions légales
+  copyright: "© 2025 Kyrostech - Tous droits réservés"
+  license: "CC BY-SA 4.0"
+  
+  # Réseaux sociaux
+  twitter: "kyrostechdev"
   github: "kyrostech"
   linkedin: "kyrostech"
-
-  # Analytics activés
+  
+  # Analytics et tracking
   googleAnalytics: "G-XXXXXXXXXX"
-
-  # Monétisation - liens réels
+  
+  # Monétisation
   patreon: "kyrostech"
   tipeee: "kyrostech"
-
-  # Newsletter - service réel
+  
+  # Newsletter
   newsletter:
     enabled: true
+    provider: "mailchimp"
     action: "https://kyrostech.us21.list-manage.com/subscribe/post?u=XXXXX&id=XXXXX"
-
-  # Commentaires activés
+    success_url: "/newsletter/success/"
+    privacy_url: "/privacy/"
+  
+  # Commentaires
   comments:
     enabled: true
+    provider: "disqus"
     disqus: "kyrostech-blog"
+  
+  # Recherche
+  search:
+    enabled: true
+    provider: "lunr"
+  
+  # PWA et performance
+  pwa:
+    enabled: true
+    name: "Kyrostech - Blog IA & Tech"
+    short_name: "Kyrostech"
+    description: "Blog IA & Tech"
+    theme_color: "#6366f1"
+    background_color: "#0f172a"
+    display: "standalone"
+    orientation: "portrait"
+    scope: "/"
+    start_url: "/"
+  
+  # Fonctionnalités du site
+  features:
+    dark_mode: true
+    reading_time: true
+    word_count: true
+    reading_progress: true
+    toc: true
+    share_buttons: true
+    related_posts: true
+    tags_cloud: true
+    categories_list: true
+    archive: true
+    sitemap: true
+    rss: true
+    json_feed: true
+    amp: false
+    instant_page: true
+    service_worker: true
+  
+  # Configuration du contenu
+  content:
+    date_format: "2 January 2006"
+    summary_length: 150
+    related_posts_count: 3
+    recent_posts_count: 5
+    popular_posts_count: 5
+    posts_per_page: 12
+    archive_posts_per_page: 20
+  
+  # Configuration du footer
+  footer:
+    show_copyright: true
+    show_powered_by: true
+    show_social_links: true
+    show_rss_link: true
+    custom_text: "Fait avec ❤️ et Hugo"
 
-# Menu optimisé et hiérarchisé
+# Menu de navigation
 menu:
   main:
     - name: "Accueil"
       url: "/"
       weight: 10
+      
     - name: "Articles"
       url: "/posts/"
       weight: 20
+      
     - name: "Catégories"
-      hasChildren: true  # Ajout pour un menu déroulant
+      url: "/categories/"
       weight: 30
-    - name: "IA"
+      # Sous-menu accessible au hover/clic
+      hasChildren: true
+      
+    - name: "À propos"
+      url: "/about/"
+      weight: 40
+      
+    - name: "Contact"
+      url: "/contact/"
+      weight: 50
+
+  # Sous-menu des catégories (affiché au hover)
+  categories:
+    - name: "Intelligence Artificielle"
       url: "/categories/ia/"
       weight: 10
-    - name: "Tech"
+      parent: "Catégories"
+      
+    - name: "Technologies"
       url: "/categories/tech/"
       weight: 20
+      parent: "Catégories"
+      
     - name: "Systèmes"
       url: "/categories/systemes/"
       weight: 30
-    - name: "Docker"
-      url: "/categories/docker/"
+      parent: "Catégories"
+      
+    - name: "DevOps"
+      url: "/categories/devops/"
       weight: 40
-    - name: "À propos"
-      url: "/about/"
-      weight: 60
+      parent: "Catégories"
 
-# SEO avancé
-permalinks:
-  posts: "/:slug/"
+  # Menu footer (liens secondaires)
+  footer:
+    - name: "Tags"
+      url: "/tags/"
+      weight: 10
+      
+    - name: "Archives"
+      url: "/archives/"
+      weight: 20
+      
+    - name: "Plan du site"
+      url: "/sitemap.xml"
+      weight: 30
 
-# Sitemap optimisé
-sitemap:
-  changefreq: "daily"
-  filename: "sitemap.xml"
-  priority: 0.8
-  sitemapTaxonomies: true  # Ajout pour inclure les taxonomies
 
-# RSS complet et SEO
-outputs:
-  home: ["HTML", "RSS", "JSON"]
-  page: ["HTML", "RSS", "JSON"]  # Ajout RSS pour les pages individuelles
-  section: ["HTML", "RSS"]
-
-# Taxonomies enrichies
+# Taxonomies
 taxonomies:
   category: "categories"
   tag: "tags"
   author: "authors"
+  series: "series"
 
-# Performance et minification
-minify:
-  disableXML: false  # Garde la minification XML
-  minifyOutput: true  # Minifie HTML, CSS, JS générés
+# Configuration des permaliens
+permalinks:
+  posts: "/:slug/"
+  categories: "/categories/:slug/"
+  tags: "/tags/:slug/"
+  authors: "/authors/:slug/"
+  series: "/series/:slug/"
 
-# Sécurité et headers HTTP
-security:
-  enableInlineScript: false  # Désactive les scripts inline pour la sécurité
-  enableInlineStyle: false  # Désactive les styles inline
+# Sitemap
+sitemap:
+  changefreq: "daily"
+  filename: "sitemap.xml"
+  priority: 0.8
 
-# Paramètres additionnels pour Hugo
-build:
-  writeStats: true  # Génère des stats pour débogage
-  noChmod: true  # Optimise les permissions
+# Configuration des sorties
+outputs:
+  home: 
+    - "HTML"
+    - "RSS"
+    - "JSON"
+  page: 
+    - "HTML"
+  section: 
+    - "HTML"
+    - "RSS"
+  taxonomy: 
+    - "HTML"
+    - "RSS"
+  term: 
+    - "HTML"
+    - "RSS"
 
-# config.yaml
-module:
-  imports:
-    - path: github.com/future-wd/hugo-seo
-    - path: github.com/hugomods/images
-    - path: github.com/hugomods/search
-    - path: github.com/hugomods/pwa
-    - path: github.com/hugomods/icons
+# Configuration des formats de sortie
+outputFormats:
+  RSS:
+    mediaType: "application/rss+xml"
+    baseName: "index"
+    path: ""
+    isPlainText: false
+    noUgly: true
+    rel: "alternate"
+  JSON:
+    mediaType: "application/json"
+    baseName: "index"
+    path: ""
+    isPlainText: true
+    noUgly: true
 
-params:
-  seo:
-    title: true
-    meta: true
-    og: true
-    twitter: true
-    jsonld:
-      article: true
-      breadcrumbs: true
-
-  images:
-    quality: 85
-    webp: true
-    lazy: true
-
-  search:
-    indexPaginate: 50
-    fuseOptions:
-      threshold: 0.3
-
-  pwa:
-    enable: true
-    name: "Tech Blog"
-    short_name: "Tech"
-    theme_color: "#0057e7"
-
-# Langues
+# Configuration des langues
 languages:
   fr:
     languageName: "Français"
+    languageCode: "fr-FR"
     weight: 1
     title: "Kyrostech - Blog IA & Tech"
+    description: "Votre source quotidienne d'actualités en Intelligence Artificielle et technologies"
 
-# Markup (syntaxe YAML corrigée)
+# Configuration du markup
 markup:
   goldmark:
     renderer:
-      unsafe: false  # Désactive le rendu HTML non sécurisé
+      unsafe: true
+      hardWraps: false
+      xhtml: false
+    parser:
+      attribute:
+        block: true
+        title: true
+      autoHeadingID: true
+      autoHeadingIDType: "github"
+    extensions:
+      definitionList: true
+      footnote: true
+      linkify: true
+      linkifyProtocol: "https"
+      strikethrough: true
+      table: true
+      taskList: true
+      typographer: true
+  highlight:
+    anchorLineNos: false
+    codeFences: true
+    guessSyntax: true
+    hl_Lines: ""
+    lineAnchors: ""
+    lineNoStart: 1
+    lineNos: true
+    lineNumbersInTable: true
+    noClasses: false
+    style: "github-dark"
+    tabWidth: 4
+  tableOfContents:
+    endLevel: 4
+    ordered: false
+    startLevel: 2
+
+# Configuration de sécurité
+security:
+  enableInlineScript: false
+  enableInlineStyle: false
+  funcs:
+    getenv:
+      - "HUGO_ENV"
+      - "NODE_ENV"
+  http:
+    methods:
+      - "GET"
+      - "POST"
+    urls:
+      - ".*"
+
+# Gestion des contenus liés
+related:
+  includeNewer: true
+  indices:
+    - name: "keywords"
+      weight: 100
+    - name: "tags"
+      weight: 80
+    - name: "categories"
+      weight: 60
+    - name: "date"
+      weight: 10
+  threshold: 80
+  toLower: true
+
+# Ignorer certains fichiers lors du build
+ignoreFiles:
+  - "\\.tmp$"
+  - "\\.bak$"
+  - "node_modules"
+  - "package\\.json"
+  - "package-lock\\.json"
+  - "yarn\\.lock"
+  - "\\.git"
+  - "\\.gitignore"
+  - "README\\.md"
+  - "LICENSE"
+
+# Configuration de cache
+caches:
+  getjson:
+    maxAge: "10m"
+  getcsv:
+    maxAge: "10m"
+  images:
+    maxAge: "24h"
+  assets:
+    maxAge: "24h"
+
+# Frontmatter par défaut
+frontmatter:
+  date:
+    - "date"
+    - "publishDate"
+    - "lastmod"
+  lastmod:
+    - "lastmod"
+    - ":git"
+    - "date"
+    - "publishDate"
+  publishDate:
+    - "publishDate"
+    - "date"
+  expiryDate:
+    - "expiryDate"

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyrostech - Blog IA & Tech</title>
+    <meta name="description" content="Votre source quotidienne d'actualités en Intelligence Artificielle et technologies. Articles expert, analyses approfondies et guides pratiques.">
+    
+    <!-- SEO Meta Tags -->
+    <meta property="og:title" content="Kyrostech - Blog IA & Tech">
+    <meta property="og:description" content="Votre source quotidienne d'actualités en Intelligence Artificielle et technologies">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kyrostech.dev">
+    <meta property="og:image" content="https://kyrostech.dev/images/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@kyrostechdev">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="/" class="site-logo">
+                <span class="brand-icon">⚡</span>
+                Kyrostech
+            </a>
+            
+            <nav class="main-nav">
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="/" class="nav-link active">Accueil</a></li>
+                    <li><a href="/posts" class="nav-link">Articles</a></li>
+                    <li><a href="/categories" class="nav-link">Catégories</a></li>
+                    <li><a href="/about" class="nav-link">À propos</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="mobile-toggle" id="mobile-toggle" style="display: none;">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Intelligence Artificielle & <br>
+                        <span style="background: linear-gradient(135deg, #10b981, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Technologies</span>
+                    </h1>
+                    <p class="hero-description">
+                        Découvrez les dernières actualités en IA, développement et systèmes. 
+                        Des analyses expertes, guides pratiques et tendances tech qui façonnent notre futur.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#articles" class="btn btn-primary">
+                            📚 Derniers articles
+                            <span>→</span>
+                        </a>
+                        <a href="/about" class="btn btn-outline">
+                            💡 Découvrir
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="floating-elements">
+                        <div class="floating-card">🤖 IA Générative</div>
+                        <div class="floating-card">🚀 DevOps</div>
+                        <div class="floating-card">💻 Développement</div>
+                        <div class="floating-card">🔧 Systèmes</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="newsletter-card">
+                <div class="newsletter-content">
+                    <h3>📧 Newsletter Tech Quotidienne</h3>
+                    <p>Recevez les meilleurs articles et actualités tech directement dans votre boîte mail. Rejoignez plus de 1200+ développeurs et tech leaders.</p>
+                </div>
+                <form class="newsletter-form" method="post">
+                    <input type="email" class="newsletter-input" placeholder="votre@email.com" required>
+                    <button type="submit" class="btn btn-primary">
+                        S'abonner gratuitement
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Featured Articles -->
+        <section class="featured-articles" id="articles">
+            <div class="container">
+                <div class="section-header">
+                    <h2>📖 Articles Récents</h2>
+                    <a href="/posts/" class="view-all">
+                        Voir tous les articles
+                        <span>→</span>
+                    </a>
+                </div>
+                
+                <div class="articles-grid">
+                    <!-- Article 1 - Docker -->
+                    <article class="article-card">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                🐳
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="category-tag">Docker</span>
+                                <time class="article-date">20 Jul 2025</time>
+                            </div>
+                            
+                            <h3 class="article-title">
+                                <a href="/posts/docker/2025-07-20-docker-essentiel/">Docker en 2025 : Le guide ultime pour débutants</a>
+                            </h3>
+                            
+                            <p class="article-excerpt">
+                                Maîtrisez Docker en 30 minutes avec des exemples pratiques. De l'installation à la production, tout ce que vous devez savoir pour commencer avec les containers.
+                            </p>
+                            
+                            <div class="article-footer">
+                                <div class="reading-time">
+                                    ⏱️ 12 min de lecture
+                                </div>
+                                <a href="/posts/docker/2025-07-20-docker-essentiel/" class="read-more">
+                                    Lire l'article
+                                    <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 - IA -->
+                    <article class="article-card">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                🤖
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="category-tag" style="background: #10b981;">IA</span>
+                                <time class="article-date">19 Jul 2025</time>
+                            </div>
+                            
+                            <h3 class="article-title">
+                                <a href="#">Les LLMs en 2025 : Ce qui change vraiment</a>
+                            </h3>
+                            
+                            <p class="article-excerpt">
+                                Claude 4, GPT-5, Gemini Ultra... Analyse comparative des derniers modèles de langage et leurs capacités révolutionnaires pour les développeurs.
+                            </p>
+                            
+                            <div class="article-footer">
+                                <div class="reading-time">
+                                    ⏱️ 8 min de lecture
+                                </div>
+                                <a href="#" class="read-more">
+                                    Lire l'article
+                                    <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 - DevOps -->
+                    <article class="article-card">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                🚀
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="category-tag" style="background: #f59e0b;">DevOps</span>
+                                <time class="article-date">18 Jul 2025</time>
+                            </div>
+                            
+                            <h3 class="article-title">
+                                <a href="#">Kubernetes vs Docker Swarm : Le match 2025</a>
+                            </h3>
+                            
+                            <p class="article-excerpt">
+                                Comparaison détaillée des deux solutions d'orchestration les plus populaires. Performances, facilité d'usage, écosystème : tout pour bien choisir.
+                            </p>
+                            
+                            <div class="article-footer">
+                                <div class="reading-time">
+                                    ⏱️ 15 min de lecture
+                                </div>
+                                <a href="#" class="read-more">
+                                    Lire l'article
+                                    <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 4 - Développement -->
+                    <article class="article-card">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                💻
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="category-tag" style="background: #8b5cf6;">Dev</span>
+                                <time class="article-date">17 Jul 2025</time>
+                            </div>
+                            
+                            <h3 class="article-title">
+                                <a href="#">React 19 : Les nouveautés qui vont tout changer</a>
+                            </h3>
+                            
+                            <p class="article-excerpt">
+                                Server Components, Concurrent Rendering, nouvelles APIs... Découvrez toutes les fonctionnalités révolutionnaires de React 19 avec des exemples concrets.
+                            </p>
+                            
+                            <div class="article-footer">
+                                <div class="reading-time">
+                                    ⏱️ 10 min de lecture
+                                </div>
+                                <a href="#" class="read-more">
+                                    Lire l'article
+                                    <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 5 - Tech -->
+                    <article class="article-card">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                🔥
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="category-tag" style="background: #ef4444;">Tech</span>
+                                <time class="article-date">16 Jul 2025</time>
+                            </div>
+                            
+                            <h3 class="article-title">
+                                <a href="#">WebAssembly : La révolution silencieuse du web</a>
+                            </h3>
+                            
+                            <p class="article-excerpt">
+                                Comment WASM transforme le développement web en permettant d'exécuter du code natif dans le navigateur. Exemples, performances et cas d'usage.
+                            </p>
+                            
+                            <div class="article-footer">
+                                <div class="reading-time">
+                                    ⏱️ 12 min de lecture
+                                </div>
+                                <a href="#" class="read-more">
+                                    Lire l'article
+                                    <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 6 - Systèmes -->
+                    <article class="article-card">
+                        <div class="article-image">
+                            <div class="placeholder-image">
+                                🛠️
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="category-tag" style="background: #06b6d4;">Systèmes</span>
+                                <time class="article-date">15 Jul 2025</time>
+                            </div>
+                            
+                            <h3 class="article-title">
+                                <a href="#">PostgreSQL 16 : Optimisations et nouvelles fonctionnalités</a>
+                            </h3>
+                            
+                            <p class="article-excerpt">
+                                Analyse complète des améliorations de performance, nouvelles fonctionnalités SQL et outils d'administration dans PostgreSQL 16.
+                            </p>
+                            
+                            <div class="article-footer">
+                                <div class="reading-time">
+                                    ⏱️ 14 min de lecture
+                                </div>
+                                <a href="#" class="read-more">
+                                    Lire l'article
+                                    <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>🗂️ Catégories Populaires</h2>
+                    <a href="/categories/" class="view-all">
+                        Toutes les catégories
+                        <span>→</span>
+                    </a>
+                </div>
+                
+                <div class="categories-grid">
+                    <a href="/categories/ia/" class="category-card">
+                        <div class="category-icon">🤖</div>
+                        <h3>Intelligence Artificielle</h3>
+                        <p>Machine Learning, Deep Learning, LLMs, Computer Vision et toutes les innovations IA</p>
+                        <span class="category-count">24 articles</span>
+                    </a>
+                    
+                    <a href="/categories/tech/" class="category-card">
+                        <div class="category-icon">💻</div>
+                        <h3>Technologies Web</h3>
+                        <p>Frameworks modernes, langages émergents, architectures et bonnes pratiques</p>
+                        <span class="category-count">38 articles</span>
+                    </a>
+                    
+                    <a href="/categories/systemes/" class="category-card">
+                        <div class="category-icon">🛠️</div>
+                        <h3>Systèmes & DevOps</h3>
+                        <p>Infrastructure, CI/CD, containers, monitoring et sécurité</p>
+                        <span class="category-count">29 articles</span>
+                    </a>
+                    
+                    <a href="/categories/dev/" class="category-card">
+                        <div class="category-icon">⚡</div>
+                        <h3>Développement</h3>
+                        <p>Patterns, architectures, outils et méthodologies de développement</p>
+                        <span class="category-count">45 articles</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">136</div>
+                        <div class="stat-label">Articles publiés</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1,247</div>
+                        <div class="stat-label">Lecteurs actifs</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Catégories tech</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">365</div>
+                        <div class="stat-label">Jours par an</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Kyrostech</h3>
+                <p>Votre source quotidienne d'actualités tech et IA. Des analyses expertes pour développeurs, architectes et tech leaders passionnés.</p>
+                <div class="social-links">
+                    <a href="https://twitter.com/kyrostechdev" class="social-link" target="_blank" rel="noopener">
+                        🐦
+                    </a>
+                    <a href="https://github.com/kyrostech" class="social-link" target="_blank" rel="noopener">
+                        🔧
+                    </a>
+                    <a href="https://linkedin.com/in/kyrostech" class="social-link" target="_blank" rel="noopener">
+                        💼
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <div class="footer-links">
+                    <a href="/" class="footer-link">Accueil</a>
+                    <a href="/posts" class="footer-link">Articles</a>
+                    <a href="/categories" class="footer-link">Catégories</a>
+                    <a href="/about" class="footer-link">À propos</a>
+                    <a href="/contact" class="footer-link">Contact</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Catégories</h3>
+                <div class="footer-links">
+                    <a href="/categories/ia/" class="footer-link">🤖 Intelligence Artificielle</a>
+                    <a href="/categories/tech/" class="footer-link">💻 Technologies</a>
+                    <a href="/categories/systemes/" class="footer-link">🛠️ Systèmes & DevOps</a>
+                    <a href="/categories/dev/" class="footer-link">⚡ Développement</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Soutenir le blog</h3>
+                <p>Soutenez la création de contenu gratuit et de qualité</p>
+                <div class="footer-links">
+                    <a href="https://patreon.com/kyrostech" class="footer-link" target="_blank" rel="noopener">❤️ Patreon</a>
+                    <a href="https://tipeee.com/kyrostech" class="footer-link" target="_blank" rel="noopener">☕ Tipeee</a>
+                    <a href="/rss.xml" class="footer-link">📡 Flux RSS</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kyrostech. Tous droits réservés. Fait avec ❤️ et Hugo.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            // Menu mobile
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('show');
+                    this.textContent = navMenu.classList.contains('show') ? '✕' : '☰';
+                });
+                
+                // Fermer le menu lors du clic sur un lien
+                navMenu.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('nav-link')) {
+                        navMenu.classList.remove('show');
+                        mobileToggle.textContent = '☰';
+                    }
+                });
+            }
+            
+            // Toggle thème
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const html = document.documentElement;
+                    const currentTheme = html.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    const themeIcon = this.querySelector('.theme-icon');
+                    
+                    html.setAttribute('data-theme', newTheme);
+                    themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+                    
+                    localStorage.setItem('theme', newTheme);
+                });
+                
+                // Charger la préférence de thème
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                const themeIcon = themeToggle.querySelector('.theme-icon');
+                if (themeIcon) {
+                    themeIcon.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+                }
+            }
+            
+            // Animation au scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observer les éléments à animer
+            document.querySelectorAll('.article-card, .category-card, .stat-item').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Smooth scroll pour les liens d'ancrage
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Newsletter form
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    const button = this.querySelector('button');
+                    const originalText = button.textContent;
+                    
+                    button.textContent = 'Inscription en cours...';
+                    button.classList.add('loading');
+                    
+                    // Simulation d'inscription (remplacer par vraie logique)
+                    setTimeout(() => {
+                        button.textContent = '✅ Inscrit !';
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                            button.classList.remove('loading');
+                            this.reset();
+                        }, 2000);
+                    }, 1000);
+                });
+            }
+        });
+        
+        // Responsive mobile toggle visibility
+        function updateMobileToggle() {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            if (mobileToggle) {
+                mobileToggle.style.display = window.innerWidth <= 768 ? 'block' : 'none';
+            }
+        }
+        
+        window.addEventListener('resize', updateMobileToggle);
+        updateMobileToggle();
+    </script>
+</body>
+</html>

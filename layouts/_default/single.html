@@ -1,208 +1,417 @@
-<head>
-    <title>{{ .Title }} - {{ .Site.Title }}</title>
-    <meta name="description" content="{{ .Description | default .Summary }}">
-    <meta property="og:title" content="{{ .Title }}">
-    <meta property="og:description" content="{{ .Description | default .Summary }}">
-    <meta property="og:image" content="{{ .Permalink }}images/cover.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-  </head>
+{{ define "head" }}
+<!-- SEO Meta Tags -->
+<meta name="description" content="{{ .Description | default .Summary | plainify | truncate 160 }}">
+{{ if .Params.tags }}
+<meta name="keywords" content="{{ delimit .Params.tags ", " }}">
+{{ end }}
+<meta name="author" content="{{ .Site.Params.author }}">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ .Description | default .Summary | plainify | truncate 160 }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ if .Params.image }}
+<meta property="og:image" content="{{ .Params.image | absURL }}">
+{{ else }}
+<meta property="og:image" content="{{ "/images/og-default.jpg" | absURL }}">
+{{ end }}
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+{{ range .Params.categories }}
+<meta property="article:section" content="{{ . }}">
+{{ end }}
+{{ range .Params.tags }}
+<meta property="article:tag" content="{{ . }}">
+{{ end }}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+{{ if .Site.Params.twitter }}
+<meta name="twitter:site" content="@{{ .Site.Params.twitter }}">
+<meta name="twitter:creator" content="@{{ .Site.Params.twitter }}">
+{{ end }}
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:description" content="{{ .Description | default .Summary | plainify | truncate 160 }}">
+{{ if .Params.image }}
+<meta name="twitter:image" content="{{ .Params.image | absURL }}">
+{{ end }}
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{{ if eq .Type "posts" }}BlogPosting{{ else }}WebPage{{ end }}",
+  "headline": {{ .Title | jsonify }},
+  "description": {{ (.Description | default .Summary | plainify) | jsonify }},
+  {{ if eq .Type "posts" }}
+  "author": {
+    "@type": "Person",
+    "name": {{ .Site.Params.author | jsonify }},
+    "url": {{ .Site.BaseURL | jsonify }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ .Site.Title | jsonify }},
+    "url": {{ .Site.BaseURL | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ "/images/logo.png" | absURL | jsonify }}
+    }
+  },
+  "datePublished": {{ .Date.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  {{ if .Params.image }}
+  "image": {
+    "@type": "ImageObject",
+    "url": {{ .Params.image | absURL | jsonify }},
+    "width": 1200,
+    "height": 630
+  },
+  {{ end }}
+  "wordCount": {{ .WordCount }},
+  {{ if .Params.categories }}
+  "articleSection": {{ delimit .Params.categories ", " | jsonify }},
+  {{ end }}
+  {{ if .Params.tags }}
+  "keywords": {{ delimit .Params.tags ", " | jsonify }},
+  {{ end }}
+  "inLanguage": "fr-FR",
+  {{ end }}
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ .Permalink | jsonify }}
+  }
+}
+</script>
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ .Permalink }}">
+{{ end }}
 
 {{ define "main" }}
-<article class="single-article">
+<article class="single-article" itemscope itemtype="https://schema.org/{{ if eq .Type "posts" }}BlogPosting{{ else }}WebPage{{ end }}">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <div class="container">
+            <ol class="breadcrumb-list">
+                <li><a href="/">🏠 Accueil</a></li>
+                {{ if .Params.categories }}
+                {{ range first 1 .Params.categories }}
+                <li><a href="/categories/{{ . | urlize }}/">{{ . }}</a></li>
+                {{ end }}
+                {{ end }}
+                <li aria-current="page">{{ .Title }}</li>
+            </ol>
+        </div>
+    </nav>
+
     <!-- Article Header -->
     <header class="article-header">
-        <div class="article-meta">
-            {{ range .Params.categories }}
-            <span class="category-tag">{{ . }}</span>
-            {{ end }}
-            <time class="article-date">{{ .Date.Format "2 January 2006" }}</time>
-            <span class="reading-time">⏱️ {{ .ReadingTime }} min de lecture</span>
-        </div>
-        
-        <h1 class="article-title">{{ .Title }}</h1>
-        
-        {{ if .Params.description }}
-        <p class="article-description">{{ .Params.description }}</p>
-        {{ end }}
-        
-        {{ if .Params.image }}
-        <div class="article-featured-image">
-            <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
-        </div>
-        {{ end }}
-        
-        <div class="article-author-info">
-            <div class="author-details">
-                <div class="author-name">{{ .Site.Params.author }}</div>
-                <div class="publish-info">
-                    Publié le {{ .Date.Format "2 January 2006" }}
+        <div class="container">
+            <!-- Article Meta (seulement pour les posts) -->
+            {{ if eq .Type "posts" }}
+            <div class="article-meta">
+                <div class="meta-left">
+                    {{ range .Params.categories }}
+                    <span class="category-tag category-{{ . | urlize }}">{{ . }}</span>
+                    {{ end }}
+                    <time class="article-date" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="datePublished">
+                        📅 {{ .Date.Format "2 January 2006" }}
+                    </time>
                     {{ if ne .Date .Lastmod }}
-                    · Mis à jour le {{ .Lastmod.Format "2 January 2006" }}
+                    <time class="article-updated" datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" itemprop="dateModified">
+                        🔄 Mis à jour le {{ .Lastmod.Format "2 January 2006" }}
+                    </time>
                     {{ end }}
                 </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Table of Contents (if enabled) -->
-    {{ if .Params.toc }}
-    <div class="table-of-contents">
-        <h3>📋 Table des matières</h3>
-        {{ .TableOfContents }}
-    </div>
-    {{ end }}
-
-    <!-- Article Content -->
-    <div class="article-content">
-        {{ .Content }}
-    </div>
-
-    <!-- Tags -->
-    {{ if .Params.tags }}
-    <div class="article-tags">
-        <h4>🏷️ Tags</h4>
-        <div class="tags-list">
-            {{ range .Params.tags }}
-            <a href="/tags/{{ . | urlize }}/" class="tag-link">#{{ . }}</a>
-            {{ end }}
-        </div>
-    </div>
-    {{ end }}
-
-    <!-- Share Buttons -->
-    <div class="share-section">
-        <h4>🔗 Partager cet article</h4>
-        <div class="share-buttons">
-            <a href="https://twitter.com/intent/tweet?url={{ .Permalink }}&text={{ .Title }}" 
-               class="share-btn twitter" target="_blank" rel="noopener">
-                📱 Twitter
-            </a>
-            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" 
-               class="share-btn linkedin" target="_blank" rel="noopener">
-                💼 LinkedIn
-            </a>
-            <a href="mailto:?subject={{ .Title }}&body=Découvre cet article intéressant : {{ .Permalink }}" 
-               class="share-btn email">
-                📧 Email
-            </a>
-            <button class="share-btn copy-url" data-url="{{ .Permalink }}">
-                🔗 Copier le lien
-            </button>
-        </div>
-    </div>
-
-    <!-- Support Section -->
-    <div class="support-section">
-        <div class="support-content">
-            <h3>💝 Cet article vous a plu ?</h3>
-            <p>Soutenez la création de contenu en devenant patron ou en laissant un pourboire !</p>
-            <div class="support-buttons">
-                {{ if .Site.Params.patreon }}
-                <a href="https://patreon.com/{{ .Site.Params.patreon }}" class="support-btn patreon">
-                    ❤️ Patreon
-                </a>
-                {{ end }}
-                {{ if .Site.Params.tipeee }}
-                <a href="https://tipeee.com/{{ .Site.Params.tipeee }}" class="support-btn tipeee">
-                    ☕ Tipeee
-                </a>
-                {{ end }}
-            </div>
-        </div>
-    </div>
-</article>
-
-<!-- Navigation between articles -->
-<nav class="article-nav">
-    {{ if .PrevInSection }}
-    <a href="{{ .PrevInSection.Permalink }}" class="nav-link prev">
-        <span class="nav-direction">← Article précédent</span>
-        <span class="nav-title">{{ .PrevInSection.Title }}</span>
-    </a>
-    {{ end }}
-    
-    {{ if .NextInSection }}
-    <a href="{{ .NextInSection.Permalink }}" class="nav-link next">
-        <span class="nav-direction">Article suivant →</span>
-        <span class="nav-title">{{ .NextInSection.Title }}</span>
-    </a>
-    {{ end }}
-</nav>
-
-<!-- Related Articles -->
-{{ $related := .Site.RegularPages.Related . | first 3 }}
-{{ if $related }}
-<section class="related-articles">
-    <h3>📖 Articles similaires</h3>
-    <div class="related-grid">
-        {{ range $related }}
-        <article class="related-card">
-            {{ if .Params.image }}
-            <div class="related-image">
-                <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
-            </div>
-            {{ else }}
-            <div class="related-image placeholder">
-                <div class="placeholder-icon">📄</div>
+                <div class="meta-right">
+                    <span class="reading-time">⏱️ {{ .ReadingTime }} min de lecture</span>
+                    <span class="word-count">📝 {{ .WordCount }} mots</span>
+                </div>
             </div>
             {{ end }}
             
-            <div class="related-content">
-                <div class="related-meta">
-                    {{ range first 1 .Params.categories }}
-                    <span class="category-tag">{{ . }}</span>
+            <!-- Article Title -->
+            <h1 class="article-title" itemprop="headline">{{ .Title }}</h1>
+            
+            <!-- Article Description -->
+            {{ if .Params.description }}
+            <p class="article-description" itemprop="description">{{ .Params.description }}</p>
+            {{ end }}
+            
+            <!-- Featured Image (seulement pour les posts) -->
+            {{ if and (eq .Type "posts") .Params.image }}
+            <div class="article-featured-image">
+                <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy" itemprop="image">
+                {{ if .Params.image_caption }}
+                <figcaption class="image-caption">{{ .Params.image_caption }}</figcaption>
+                {{ end }}
+            </div>
+            {{ end }}
+            
+            <!-- Author Info (seulement pour les posts) -->
+            {{ if eq .Type "posts" }}
+            <div class="article-author-info">
+                <div class="author-avatar">
+                    <img src="/images/author-avatar.jpg" alt="{{ .Site.Params.author }}" loading="lazy" onerror="this.style.display='none'">
+                </div>
+                <div class="author-details">
+                    <div class="author-name" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                        <span itemprop="name">{{ .Site.Params.author }}</span>
+                    </div>
+                    <div class="author-bio">
+                        Passionné de tech et IA, je partage mes découvertes et analyses sur les dernières innovations.
+                    </div>
+                    <div class="author-social">
+                        {{ if .Site.Params.twitter }}
+                        <a href="https://twitter.com/{{ .Site.Params.twitter }}" target="_blank" rel="noopener" class="social-link">
+                            🐦 Twitter
+                        </a>
+                        {{ end }}
+                        {{ if .Site.Params.github }}
+                        <a href="https://github.com/{{ .Site.Params.github }}" target="_blank" rel="noopener" class="social-link">
+                            🔧 GitHub
+                        </a>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </header>
+
+    <!-- Table of Contents (seulement pour les posts avec toc activé) -->
+    {{ if and (eq .Type "posts") .Params.toc }}
+    <aside class="table-of-contents">
+        <div class="container">
+            <div class="toc-wrapper">
+                <h3>📋 Table des matières</h3>
+                <div class="toc-content">
+                    {{ .TableOfContents }}
+                </div>
+            </div>
+        </div>
+    </aside>
+    {{ end }}
+
+    <!-- Article Content -->
+    <div class="article-body">
+        <div class="container">
+            <div class="article-content" itemprop="{{ if eq .Type "posts" }}articleBody{{ else }}text{{ end }}">
+                {{ .Content }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Tags Section (seulement pour les posts avec tags) -->
+    {{ if and (eq .Type "posts") .Params.tags }}
+    <section class="article-tags">
+        <div class="container">
+            <h4>🏷️ Tags associés</h4>
+            <div class="tags-list">
+                {{ range .Params.tags }}
+                <a href="/tags/{{ . | urlize }}/" class="tag-link" rel="tag">#{{ . }}</a>
+                {{ end }}
+            </div>
+        </div>
+    </section>
+    {{ end }}
+
+    <!-- Share Section (seulement pour les posts) -->
+    {{ if eq .Type "posts" }}
+    <section class="share-section">
+        <div class="container">
+            <h4>🔗 Partager cet article</h4>
+            <div class="share-buttons">
+                <a href="https://twitter.com/intent/tweet?url={{ .Permalink }}&text={{ .Title }}{{ if .Site.Params.twitter }}&via={{ .Site.Params.twitter }}{{ end }}" 
+                   class="share-btn twitter" target="_blank" rel="noopener">
+                    🐦 Twitter
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" 
+                   class="share-btn linkedin" target="_blank" rel="noopener">
+                    💼 LinkedIn
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink }}" 
+                   class="share-btn facebook" target="_blank" rel="noopener">
+                    📘 Facebook
+                </a>
+                <a href="mailto:?subject={{ .Title }}&body=Découvre cet article intéressant : {{ .Permalink }}" 
+                   class="share-btn email">
+                    📧 Email
+                </a>
+                <button class="share-btn copy-url" data-url="{{ .Permalink }}">
+                    📋 Copier le lien
+                </button>
+            </div>
+        </div>
+    </section>
+    {{ end }}
+
+    <!-- Support Section (seulement pour les posts) -->
+    {{ if eq .Type "posts" }}
+    <section class="support-section">
+        <div class="container">
+            <div class="support-card">
+                <div class="support-content">
+                    <h3>💝 Cet article vous a plu ?</h3>
+                    <p>Soutenez la création de contenu tech de qualité ! Votre soutien m'aide à continuer à produire des analyses approfondies et des guides pratiques.</p>
+                </div>
+                <div class="support-buttons">
+                    {{ if .Site.Params.patreon }}
+                    <a href="https://patreon.com/{{ .Site.Params.patreon }}" class="support-btn patreon" target="_blank" rel="noopener">
+                        ❤️ Patreon
+                    </a>
                     {{ end }}
-                    <time>{{ .Date.Format "2 Jan" }}</time>
+                    {{ if .Site.Params.tipeee }}
+                    <a href="https://tipeee.com/{{ .Site.Params.tipeee }}" class="support-btn tipeee" target="_blank" rel="noopener">
+                        ☕ Tipeee
+                    </a>
+                    {{ end }}
+                    <a href="/about/" class="support-btn about">
+                        💡 En savoir plus
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{ end }}
+</article>
+
+<!-- Navigation between articles (seulement pour les posts) -->
+{{ if eq .Type "posts" }}
+<nav class="article-nav">
+    <div class="container">
+        <div class="nav-links">
+            {{ if .PrevInSection }}
+            <a href="{{ .PrevInSection.Permalink }}" class="nav-link prev">
+                <div class="nav-direction">← Article précédent</div>
+                <div class="nav-title">{{ .PrevInSection.Title }}</div>
+            </a>
+            {{ end }}
+            
+            <a href="/posts/" class="nav-link center">
+                <div class="nav-direction">📚</div>
+                <div class="nav-title">Tous les articles</div>
+            </a>
+            
+            {{ if .NextInSection }}
+            <a href="{{ .NextInSection.Permalink }}" class="nav-link next">
+                <div class="nav-direction">Article suivant →</div>
+                <div class="nav-title">{{ .NextInSection.Title }}</div>
+            </a>
+            {{ end }}
+        </div>
+    </div>
+</nav>
+
+<!-- Related Articles (seulement pour les posts) -->
+{{ $related := .Site.RegularPages.Related . | first 3 }}
+{{ if and (eq .Type "posts") $related }}
+<section class="related-articles">
+    <div class="container">
+        <h3>📖 Articles similaires</h3>
+        <div class="related-grid">
+            {{ range $related }}
+            <article class="related-card">
+                <div class="related-image">
+                    {{ if .Params.image }}
+                    <img src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy">
+                    {{ else }}
+                    <div class="placeholder-image">
+                        {{ range first 1 .Params.categories }}
+                        {{ if eq . "IA" }}🤖{{ else if eq . "DevOps" }}🚀{{ else if eq . "Dev" }}💻{{ else if eq . "Docker" }}🐳{{ else }}📄{{ end }}
+                        {{ end }}
+                    </div>
+                    {{ end }}
                 </div>
                 
-                <h4 class="related-title">
-                    <a href="{{ .Permalink }}">{{ .Title }}</a>
-                </h4>
-                
-                <p class="related-excerpt">
-                    {{ .Summary | truncate 80 }}
-                </p>
-            </div>
-        </article>
-        {{ end }}
-    </div>
-</section>
-{{ end }}
-
-<!-- Newsletter Signup -->
-{{ if .Site.Params.newsletter.enabled }}
-<section class="article-newsletter">
-    <div class="newsletter-card">
-        <div class="newsletter-content">
-            <h3>📬 Ne ratez aucun article</h3>
-            <p>Recevez les nouveaux articles directement dans votre boîte mail</p>
+                <div class="related-content">
+                    <div class="related-meta">
+                        {{ range first 1 .Params.categories }}
+                        <span class="category-tag category-{{ . | urlize }}">{{ . }}</span>
+                        {{ end }}
+                        <time>{{ .Date.Format "2 Jan 2006" }}</time>
+                    </div>
+                    
+                    <h4 class="related-title">
+                        <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    </h4>
+                    
+                    <p class="related-excerpt">
+                        {{ .Summary | truncate 80 }}
+                    </p>
+                </div>
+            </article>
+            {{ end }}
         </div>
-        <form class="newsletter-form" action="{{ .Site.Params.newsletter.action }}" method="post">
-            <input type="email" placeholder="votre@email.com" required class="newsletter-input">
-            <button type="submit" class="btn btn-primary">S'abonner</button>
-        </form>
+    </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Newsletter CTA (seulement pour les posts) -->
+{{ if and (eq .Type "posts") .Site.Params.newsletter.enabled }}
+<section class="article-newsletter">
+    <div class="container">
+        <div class="newsletter-cta">
+            <div class="newsletter-content">
+                <h3>📬 Ne ratez aucun article</h3>
+                <p>Rejoignez plus de 1,200 développeurs et tech leaders qui reçoivent les nouveaux articles directement dans leur boîte mail.</p>
+            </div>
+            <form class="newsletter-form" action="{{ .Site.Params.newsletter.action }}" method="post">
+                <input type="email" name="email" placeholder="votre@email.com" required class="newsletter-input">
+                <button type="submit" class="btn btn-primary">
+                    S'abonner gratuitement
+                </button>
+            </form>
+        </div>
     </div>
 </section>
 {{ end }}
 
+<!-- Copy URL Script -->
 <script>
-// Copy URL functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const copyButtons = document.querySelectorAll('.copy-url');
-    
-    copyButtons.forEach(button => {
+    // Copy URL functionality
+    document.querySelectorAll('.copy-url').forEach(button => {
         button.addEventListener('click', function() {
             const url = this.dataset.url;
-            navigator.clipboard.writeText(url).then(() => {
-                const originalText = this.textContent;
-                this.textContent = '✅ Copié !';
-                setTimeout(() => {
-                    this.textContent = originalText;
-                }, 2000);
-            });
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    const originalText = this.textContent;
+                    this.textContent = '✅ Copié !';
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 2000);
+                }).catch(() => {
+                    // Fallback pour anciens navigateurs
+                    fallbackCopyText(url, this);
+                });
+            } else {
+                fallbackCopyText(url, this);
+            }
         });
     });
+    
+    function fallbackCopyText(text, button) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            const originalText = button.textContent;
+            button.textContent = '✅ Copié !';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        } catch (err) {
+            console.error('Erreur lors de la copie:', err);
+        }
+        document.body.removeChild(textarea);
+    }
 });
 </script>
-
 {{ end }}

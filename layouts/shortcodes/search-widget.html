@@ -1,0 +1,42 @@
+<div class="search-widget">
+    <div class="quick-search">
+        <input type="text" 
+               class="quick-search-input" 
+               placeholder="Recherche rapide..."
+               onkeyup="quickSearch(this.value)">
+        <div class="quick-search-results" id="quickResults"></div>
+    </div>
+    <a href="/search/" class="search-link">
+        Recherche avancée →
+    </a>
+</div>
+
+<script>
+function quickSearch(query) {
+    if (query.length < 2) {
+        document.getElementById('quickResults').innerHTML = '';
+        return;
+    }
+    
+    // Recherche rapide avec fetch de l'index
+    fetch('/search.json')
+        .then(response => response.json())
+        .then(data => {
+            const results = data.articles
+                .filter(article => 
+                    article.title.toLowerCase().includes(query.toLowerCase()) ||
+                    article.excerpt.toLowerCase().includes(query.toLowerCase())
+                )
+                .slice(0, 5);
+                
+            const html = results.map(article => `
+                <a href="${article.url}" class="quick-result">
+                    <strong>${article.title}</strong>
+                    <span>${article.categoryLabel}</span>
+                </a>
+            `).join('');
+            
+            document.getElementById('quickResults').innerHTML = html;
+        });
+}
+</script>

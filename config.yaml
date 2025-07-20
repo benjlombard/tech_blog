@@ -183,6 +183,10 @@ params:
 # Menu de navigation
 menu:
   main:
+    - name: "🔍 Recherche"
+      url: "/search/"
+      weight: 25
+
     - name: "Accueil"
       url: "/"
       weight: 10
@@ -274,6 +278,7 @@ outputs:
   section: 
     - "HTML"
     - "RSS"
+    - "JSON"
   taxonomy: 
     - "HTML"
     - "RSS"

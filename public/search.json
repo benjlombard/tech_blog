@@ -1,0 +1,88 @@
+{
+    "articles": [
+      {
+        "id": "docker-guide-2025",
+        "title": "Docker en 2025 : Le guide ultime pour débutants",
+        "excerpt": "Maîtrisez Docker en 30 minutes avec des exemples pratiques. De l'installation à la production, tout ce que vous devez savoir pour commencer avec les containers.",
+        "url": "/posts/docker/2025-07-20-docker-essentiel/",
+        "date": "2025-07-20T10:00:00Z",
+        "readingTime": 12,
+        "category": "docker",
+        "categoryLabel": "Docker",
+        "tags": ["docker", "container", "devops", "guide", "2025", "kubernetes"]
+      },
+      {
+        "id": "llms-2025",
+        "title": "Les LLMs en 2025 : Ce qui change vraiment",
+        "excerpt": "Claude 4, GPT-5, Gemini Ultra... Analyse comparative des derniers modèles de langage et leurs capacités révolutionnaires pour les développeurs.",
+        "url": "/posts/ia/llms-2025/",
+        "date": "2025-07-19T10:00:00Z", 
+        "readingTime": 8,
+        "category": "ia",
+        "categoryLabel": "Intelligence Artificielle",
+        "tags": ["ia", "llm", "claude", "gpt", "gemini"]
+      },
+      {
+        "id": "kubernetes-vs-swarm",
+        "title": "Kubernetes vs Docker Swarm : Le match 2025",
+        "excerpt": "Comparaison détaillée des deux solutions d'orchestration les plus populaires. Performances, facilité d'usage, écosystème : tout pour bien choisir.",
+        "url": "/posts/devops/kubernetes-vs-swarm/",
+        "date": "2025-07-18T10:00:00Z",
+        "readingTime": 15,
+        "category": "devops", 
+        "categoryLabel": "DevOps",
+        "tags": ["kubernetes", "docker", "swarm", "orchestration", "devops"]
+      },
+      {
+        "id": "react-19-nouveautes",
+        "title": "React 19 : Les nouveautés qui vont tout changer",
+        "excerpt": "Server Components, Concurrent Rendering, nouvelles APIs... Découvrez toutes les fonctionnalités révolutionnaires de React 19 avec des exemples concrets.",
+        "url": "/posts/dev/react-19-nouveautes/",
+        "date": "2025-07-17T10:00:00Z",
+        "readingTime": 10,
+        "category": "dev",
+        "categoryLabel": "Développement", 
+        "tags": ["react", "javascript", "frontend", "components", "hooks"]
+      },
+      {
+        "id": "webassembly-revolution",
+        "title": "WebAssembly : La révolution silencieuse du web",
+        "excerpt": "Comment WASM transforme le développement web en permettant d'exécuter du code natif dans le navigateur. Exemples, performances et cas d'usage.",
+        "url": "/posts/tech/webassembly-revolution/",
+        "date": "2025-07-16T10:00:00Z",
+        "readingTime": 12,
+        "category": "tech",
+        "categoryLabel": "Technologies",
+        "tags": ["webassembly", "wasm", "performance", "web", "natif"]
+      },
+      {
+        "id": "postgresql-16",
+        "title": "PostgreSQL 16 : Optimisations et nouvelles fonctionnalités", 
+        "excerpt": "Analyse complète des améliorations de performance, nouvelles fonctionnalités SQL et outils d'administration dans PostgreSQL 16.",
+        "url": "/posts/systemes/postgresql-16/",
+        "date": "2025-07-15T10:00:00Z",
+        "readingTime": 14,
+        "category": "systemes",
+        "categoryLabel": "Systèmes",
+        "tags": ["postgresql", "database", "sql", "performance", "admin"]
+      }
+    ],
+    "categories": [
+      "Docker",
+      "Intelligence Artificielle", 
+      "DevOps",
+      "Développement",
+      "Technologies",
+      "Systèmes"
+    ],
+    "tags": [
+      "docker", "container", "devops", "guide", "kubernetes",
+      "ia", "llm", "claude", "gpt", "gemini",
+      "orchestration", "swarm",
+      "react", "javascript", "frontend", "components", "hooks",
+      "webassembly", "wasm", "performance", "web",
+      "postgresql", "database", "sql", "admin"
+    ],
+    "total": 6,
+    "lastUpdated": "2025-07-20T10:00:00Z"
+  }

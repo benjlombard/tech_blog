@@ -1,0 +1,25 @@
+# ===== 5. CSS supplémentaire pour l'intégration =====
+# Ajouter dans static/css/search.css
+
+.search-page {
+    padding-top: 2rem;
+}
+
+.search-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+}
+
+/* Styles de recherche responsive */
+@media (max-width: 768px) {
+    .search-filters {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .search-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

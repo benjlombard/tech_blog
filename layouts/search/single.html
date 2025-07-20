@@ -1,0 +1,440 @@
+{{ define "head" }}
+<meta name="description" content="Recherchez parmi tous les articles de Kyrostech">
+<style>
+:root {
+    --primary: #6366f1;
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --bg-card: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border: #374151;
+    --border-accent: rgba(99, 102, 241, 0.3);
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --transition: all 0.3s ease;
+}
+
+.search-page {
+    padding: 2rem 0;
+    min-height: 80vh;
+}
+
+.search-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.search-header {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    padding: 2rem;
+    text-align: center;
+    color: white;
+}
+
+.search-header h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.875rem;
+    font-weight: 800;
+}
+
+.search-content {
+    padding: 2rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.search-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter-group {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+}
+
+.filter-label {
+    display: block;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 0.5rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+}
+
+.search-results {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.result-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.result-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.result-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.result-excerpt {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.result-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.loading {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+}
+
+.error-message {
+    background: #ef4444;
+    color: white;
+    padding: 1rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 1rem;
+}
+
+.highlight {
+    background: rgba(99, 102, 241, 0.3);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
+@media (max-width: 768px) {
+    .search-content {
+        padding: 1rem;
+    }
+    .search-filters {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{{ end }}
+
+{{ define "main" }}
+<div class="search-page">
+    <div class="container">
+        <div class="search-container">
+            <div class="search-header">
+                <h1>🔍 Recherche Avancée</h1>
+                <p>Trouvez rapidement les articles qui vous intéressent</p>
+            </div>
+
+            <div class="search-content">
+                <!-- Debug info -->
+                <div id="debugInfo" style="background: #333; padding: 1rem; margin-bottom: 1rem; border-radius: 0.5rem; font-family: monospace; font-size: 0.8rem; color: #fff;">
+                    <strong>🔧 Debug Info:</strong><br>
+                    <span id="debugText">Initialisation...</span>
+                </div>
+
+                <!-- Barre de recherche -->
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput"
+                    placeholder="Rechercher des articles, technologies, concepts..."
+                >
+
+                <!-- Filtres -->
+                <div class="search-filters">
+                    <div class="filter-group">
+                        <label class="filter-label">Catégorie</label>
+                        <select class="filter-select" id="categoryFilter">
+                            <option value="">Toutes les catégories</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Période</label>
+                        <select class="filter-select" id="dateFilter">
+                            <option value="">Toute période</option>
+                            <option value="week">Cette semaine</option>
+                            <option value="month">Ce mois</option>
+                            <option value="quarter">Ce trimestre</option>
+                            <option value="year">Cette année</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Statistiques -->
+                <div style="margin-bottom: 1rem; color: var(--text-secondary);">
+                    <span id="resultNumber">0</span> articles trouvés
+                </div>
+
+                <!-- Résultats -->
+                <div class="search-results" id="searchResults">
+                    <div class="loading">
+                        🔄 Chargement des articles...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+class DebugSearch {
+    constructor() {
+        this.articles = [];
+        this.filteredArticles = [];
+        this.debugElement = document.getElementById('debugText');
+        this.log('🚀 Initialisation de la recherche...');
+        
+        this.initElements();
+        this.testEndpoints();
+    }
+
+    log(message) {
+        console.log(message);
+        if (this.debugElement) {
+            this.debugElement.innerHTML += '<br>' + message;
+        }
+    }
+
+    initElements() {
+        this.searchInput = document.getElementById('searchInput');
+        this.categoryFilter = document.getElementById('categoryFilter');
+        this.dateFilter = document.getElementById('dateFilter');
+        this.resultsContainer = document.getElementById('searchResults');
+        this.resultsCount = document.getElementById('resultNumber');
+        
+        this.bindEvents();
+        this.log('✅ Éléments initialisés');
+    }
+
+    async testEndpoints() {
+        const endpoints = [
+            '/search.json',
+            '/index.json',
+            '/api/search.json'
+        ];
+
+        this.log('🔍 Test des endpoints disponibles...');
+
+        for (const endpoint of endpoints) {
+            try {
+                this.log(`Test: ${endpoint}`);
+                const response = await fetch(endpoint);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    this.log(`✅ ${endpoint} - OK (${data.articles?.length || 0} articles)`);
+                    
+                    // Utiliser le premier endpoint qui fonctionne
+                    this.articles = data.articles || [];
+                    this.populateFilters(data);
+                    this.applyFilters();
+                    return;
+                } else {
+                    this.log(`❌ ${endpoint} - ${response.status}`);
+                }
+            } catch (error) {
+                this.log(`❌ ${endpoint} - Erreur: ${error.message}`);
+            }
+        }
+
+        // Aucun endpoint ne fonctionne
+        this.showError();
+    }
+
+    populateFilters(data) {
+        // Remplir le filtre des catégories
+        if (data.categories && data.categories.length > 0) {
+            data.categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.toLowerCase();
+                option.textContent = category;
+                this.categoryFilter.appendChild(option);
+            });
+            this.log(`📂 ${data.categories.length} catégories chargées`);
+        }
+    }
+
+    bindEvents() {
+        this.searchInput.addEventListener('input', (e) => {
+            this.applyFilters();
+        });
+
+        this.categoryFilter.addEventListener('change', () => {
+            this.applyFilters();
+        });
+
+        this.dateFilter.addEventListener('change', () => {
+            this.applyFilters();
+        });
+    }
+
+    applyFilters() {
+        const query = this.searchInput.value.toLowerCase();
+        const category = this.categoryFilter.value;
+        const dateFilter = this.dateFilter.value;
+
+        this.filteredArticles = this.articles.filter(article => {
+            // Filtre par texte
+            if (query) {
+                const searchText = `${article.title} ${article.excerpt}`.toLowerCase();
+                if (!searchText.includes(query)) return false;
+            }
+
+            // Filtre par catégorie
+            if (category && article.category !== category) {
+                return false;
+            }
+
+            // Filtre par date
+            if (dateFilter) {
+                const now = new Date();
+                const articleDate = new Date(article.date);
+                const diffDays = Math.floor((now - articleDate) / (1000 * 60 * 60 * 24));
+
+                switch (dateFilter) {
+                    case 'week': if (diffDays > 7) return false; break;
+                    case 'month': if (diffDays > 30) return false; break;
+                    case 'quarter': if (diffDays > 90) return false; break;
+                    case 'year': if (diffDays > 365) return false; break;
+                }
+            }
+
+            return true;
+        });
+
+        this.renderResults();
+        this.log(`🔍 Recherche: "${query}" - ${this.filteredArticles.length} résultats`);
+    }
+
+    highlightText(text, query) {
+        if (!query) return text;
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    formatDate(date) {
+        return new Intl.DateTimeFormat('fr-FR', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+        }).format(new Date(date));
+    }
+
+    renderResults() {
+        this.resultsCount.textContent = this.filteredArticles.length;
+
+        if (this.filteredArticles.length === 0) {
+            this.resultsContainer.innerHTML = `
+                <div class="no-results">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">😔</div>
+                    <h3>Aucun résultat trouvé</h3>
+                    <p>Essayez de modifier vos critères de recherche</p>
+                    <p><small>Total d'articles disponibles: ${this.articles.length}</small></p>
+                </div>
+            `;
+            return;
+        }
+
+        const query = this.searchInput.value.toLowerCase();
+        const resultsHTML = this.filteredArticles.map(article => {
+            const highlightedTitle = this.highlightText(article.title, query);
+            const highlightedExcerpt = this.highlightText(article.excerpt, query);
+
+            return `
+                <div class="result-item" onclick="window.location.href='${article.url}'">
+                    <h3 class="result-title">${highlightedTitle}</h3>
+                    <p class="result-excerpt">${highlightedExcerpt}</p>
+                    <div class="result-meta">
+                        <div>📅 ${this.formatDate(article.date)}</div>
+                        <div>⏱️ ${article.readingTime || 5} min</div>
+                        <div>📂 ${article.categoryLabel || 'Sans catégorie'}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        this.resultsContainer.innerHTML = resultsHTML;
+    }
+
+    showError() {
+        this.log('❌ Aucun endpoint de recherche disponible');
+        this.resultsContainer.innerHTML = `
+            <div class="error-message">
+                <h3>⚠️ Erreur de chargement</h3>
+                <p>Impossible de charger les articles de recherche.</p>
+                <p><strong>Solutions possibles :</strong></p>
+                <ul>
+                    <li>Vérifiez que le fichier <code>content/search.json</code> existe</li>
+                    <li>Vérifiez que <code>layouts/_default/search.json</code> existe</li>
+                    <li>Rechargez la page</li>
+                </ul>
+            </div>
+        `;
+    }
+}
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', () => {
+    new DebugSearch();
+});
+</script>
+{{ end }}

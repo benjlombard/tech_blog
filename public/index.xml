@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kyrostech - Blog IA &amp; Tech</title><link>http://localhost:1313/</link><description>Recent content on Kyrostech - Blog IA &amp; Tech</description><generator>Hugo</generator><language>fr-FR</language><lastBuildDate>Sun, 20 Jul 2025 15:53:17 +0200</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker en 2025 : Le guide ultime pour débutants</title><link>http://localhost:1313/docker-en-2025-le-guide-ultime-pour-d%C3%A9butants/</link><pubDate>Sun, 20 Jul 2025 10:00:00 +0200</pubDate><guid>http://localhost:1313/docker-en-2025-le-guide-ultime-pour-d%C3%A9butants/</guid><description>&lt;h1 id="-docker-en-2025--le-guide-ultime-pour-débutants">🐳 Docker en 2025 : Le guide ultime pour débutants&lt;/h1>
+&lt;p>Docker a révolutionné la manière dont nous développons et déployons des applications. En 2025, il est devenu &lt;strong>indispensable&lt;/strong> pour tout développeur moderne. Ce guide vous emmènera du zéro absolu à une compréhension solide en moins de 30 minutes.&lt;/p>
+&lt;h2 id="-table-des-matières">📋 Table des matières&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="http://localhost:1313/docker-en-2025-le-guide-ultime-pour-d%C3%A9butants/#quest-ce-que-docker">Qu&amp;rsquo;est-ce que Docker ?&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://localhost:1313/docker-en-2025-le-guide-ultime-pour-d%C3%A9butants/#installation">Installation en 3 minutes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://localhost:1313/docker-en-2025-le-guide-ultime-pour-d%C3%A9butants/#premier-container">Votre premier container&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://localhost:1313/docker-en-2025-le-guide-ultime-pour-d%C3%A9butants/#docker-compose">Docker Compose simplifié&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://localhost:1313/docker-en-2025-le-guide-ultime-pour-d%C3%A9butants/#bonnes-pratiques">Bonnes pratiques 2025&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://localhost:1313/docker-en-2025-le-guide-ultime-pour-d%C3%A9butants/#debogage">Débogage rapide&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://localhost:1313/docker-en-2025-le-guide-ultime-pour-d%C3%A9butants/#aller-plus-loin">Aller plus loin&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="-quest-ce-que-docker-">🤔 Qu&amp;rsquo;est-ce que Docker ?&lt;/h2>
+&lt;p>&lt;strong>Docker&lt;/strong> est une plateforme qui permet d&amp;rsquo;empaqueter une application avec toutes ses dépendances dans un &lt;strong>container&lt;/strong> portable. Imaginez une VM ultra-légère qui démarre en quelques millisecondes.&lt;/p></description></item><item><title>Recherche Avancée</title><link>http://localhost:1313/search/</link><pubDate>Sun, 20 Jul 2025 10:00:00 +0200</pubDate><guid>http://localhost:1313/search/</guid><description/></item><item><title/><link>http://localhost:1313/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/contact/</guid><description>&lt;h1 id="-contentcontactindexmd-">===== content/contact/index.md =====&lt;/h1>
+&lt;hr>
+&lt;h2 id="type-page">title: &amp;ldquo;Contact&amp;rdquo;
+description: &amp;ldquo;Contactez-nous pour toute question ou collaboration&amp;rdquo;
+date: 2025-01-20
+lastmod: 2025-01-20
+draft: false
+type: &amp;ldquo;page&amp;rdquo;&lt;/h2>
+&lt;h1 id="contact">Contact&lt;/h1>
+&lt;h2 id="restons-en-contact--">Restons en contact ! 👋&lt;/h2>
+&lt;p>Vous avez une question, une suggestion ou souhaitez collaborer ? N&amp;rsquo;hésitez pas à me contacter !&lt;/p>
+&lt;h2 id="-email">📧 Email&lt;/h2>
+&lt;p>&lt;strong>Principal :&lt;/strong> &lt;a href="mailto:contact@kyrostech.dev">contact@kyrostech.dev&lt;/a>&lt;/p>
+&lt;h2 id="-réseaux-sociaux">🌐 Réseaux sociaux&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Twitter :&lt;/strong> &lt;a href="https://twitter.com/kyrostechdev">@kyrostechdev&lt;/a>&lt;/li>
+&lt;li>&lt;strong>LinkedIn :&lt;/strong> &lt;a href="https://linkedin.com/in/kyrostech">Kyrostech&lt;/a>&lt;/li>
+&lt;li>&lt;strong>GitHub :&lt;/strong> &lt;a href="https://github.com/kyrostech">kyrostech&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="-discussions">💬 Discussions&lt;/h2>
+&lt;p>Pour des discussions techniques ou des questions sur les articles :&lt;/p>
+&lt;ul>
+&lt;li>Utilisez les commentaires sous chaque article&lt;/li>
+&lt;li>Mentionnez-moi sur Twitter avec &lt;a href="https://twitter.com/kyrostechdev">@kyrostechdev&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="-collaborations">🤝 Collaborations&lt;/h2>
+&lt;p>Je suis ouvert aux collaborations pour :&lt;/p></description></item><item><title/><link>http://localhost:1313/offline/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/offline/</guid><description>&lt;h1 id="-contentofflineindexmd-">===== content/offline/index.md =====&lt;/h1>
+&lt;hr>
+&lt;h2 id="type-page">title: &amp;ldquo;Mode hors ligne&amp;rdquo;
+description: &amp;ldquo;Cette page est disponible même sans connexion internet&amp;rdquo;
+date: 2025-01-20
+lastmod: 2025-01-20
+draft: false
+type: &amp;ldquo;page&amp;rdquo;&lt;/h2>
+&lt;h1 id="-vous-êtes-hors-ligne">📡 Vous êtes hors ligne&lt;/h1>
+&lt;h2 id="pas-de-connexion-internet-détectée">Pas de connexion internet détectée&lt;/h2>
+&lt;p>Il semble que votre connexion internet soit interrompue. Pas de panique ! Cette page reste accessible grâce à notre système de cache intelligent.&lt;/p>
+&lt;h2 id="-que-faire-">🔄 Que faire ?&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Vérifiez votre connexion&lt;/strong> wifi ou données mobiles&lt;/li>
+&lt;li>&lt;strong>Actualisez la page&lt;/strong> une fois reconnecté&lt;/li>
+&lt;li>&lt;strong>Explorez le contenu en cache&lt;/strong> disponible hors ligne&lt;/li>
+&lt;/ol>
+&lt;h2 id="-contenu-disponible-hors-ligne">📚 Contenu disponible hors ligne&lt;/h2>
+&lt;p>Grâce à notre Progressive Web App (PWA), certains contenus restent accessibles :&lt;/p></description></item><item><title/><link>http://localhost:1313/privacy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://localhost:1313/privacy/</guid><description>&lt;h1 id="-contentprivacyindexmd-">===== content/privacy/index.md =====&lt;/h1>
+&lt;hr>
+&lt;h2 id="type-page">title: &amp;ldquo;Politique de confidentialité&amp;rdquo;
+description: &amp;ldquo;Notre engagement pour la protection de vos données personnelles&amp;rdquo;
+date: 2025-01-20
+lastmod: 2025-01-20
+draft: false
+type: &amp;ldquo;page&amp;rdquo;&lt;/h2>
+&lt;h1 id="politique-de-confidentialité">Politique de confidentialité&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>Chez Kyrostech, nous nous engageons à protéger votre vie privée et vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations.&lt;/p>
+&lt;h2 id="données-collectées">Données collectées&lt;/h2>
+&lt;h3 id="newsletter">Newsletter&lt;/h3>
+&lt;ul>
+&lt;li>Adresse email (pour l&amp;rsquo;envoi de la newsletter)&lt;/li>
+&lt;li>Date d&amp;rsquo;inscription&lt;/li>
+&lt;li>Préférences de contenu&lt;/li>
+&lt;/ul>
+&lt;h3 id="analytics">Analytics&lt;/h3>
+&lt;ul>
+&lt;li>Données de navigation anonymisées&lt;/li>
+&lt;li>Pages visitées&lt;/li>
+&lt;li>Durée de visite&lt;/li>
+&lt;li>Pays d&amp;rsquo;origine (anonymisé)&lt;/li>
+&lt;/ul>
+&lt;h3 id="commentaires">Commentaires&lt;/h3>
+&lt;ul>
+&lt;li>Nom d&amp;rsquo;utilisateur&lt;/li>
+&lt;li>Adresse email (non publique)&lt;/li>
+&lt;li>Contenu du commentaire&lt;/li>
+&lt;/ul>
+&lt;h2 id="utilisation-des-données">Utilisation des données&lt;/h2>
+&lt;p>Nous utilisons vos données uniquement pour :&lt;/p></description></item></channel></rss>
